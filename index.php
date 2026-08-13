@@ -57,7 +57,35 @@
                 </div>
             </div>
         </section>
+        <!-- video -->
+        <section class="video">
+    <div class="container">
+
+        <div style="display: flex; align-items: center; gap: 30px;">
+
+         <div class="video-text">
+                <p>
+                    Assista ao vídeo ao lado e conheça melhor a Polaris Óculos,
+                    nossos produtos e tudo o que temos para oferecer.
+                </p>
+            </div>
+
+            <iframe 
+                width="560" 
+                height="315"
+                src="https://www.youtube.com/embed/X4F1Zggw3uU"
+                title="Vídeo da Polaris Óculos"
+                allowfullscreen>
+            </iframe>
+
+           
+
+        </div>
+
+    </div>
+</section>
     </main>
+    
     <?php
     require_once __DIR__ . "/components/footer.php";
     ?>
