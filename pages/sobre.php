@@ -35,11 +35,17 @@
         rel="stylesheet"
         href="/../assets/css/footer.css">
 
+    <!-- sidebar css -->
+    <link
+        rel="stylesheet"
+        href="/../assets/css/sidebar.css">
+
 </head>
 
 <body>  
     <?php
-    require_once __DIR__ . "/../components/header.php";
+        require_once __DIR__ . "/../components/header.php";
+        require_once __DIR__ . "/../components/sidebar.php";
     ?>
 
     <main>
@@ -119,7 +125,9 @@
     </main>
 
     <?php
-    require_once __DIR__ . "/../components/footer.php";
+        require_once __DIR__ . "/../components/footer.php";
     ?>
+
+    <script src="/../assets/js/sidebar.js"></script>
 </body>
 </html>
