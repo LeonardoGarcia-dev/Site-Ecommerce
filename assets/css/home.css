@@ -2,26 +2,74 @@
 /*css daqueles banners da pagina inicial */
 
 .hero {
+    position: relative;
     min-height: 500px;
+    overflow: hidden;
 
     display: flex;
     align-items: center;
 
     background-color: #f4f4f4;
+}
 
-    background-image:
-        linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0.08),
-            rgba(0, 0, 0, 0)
-        );
+/* camada das imagens, atrás de tudo */
+.carrossel-container {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.carrossel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carrossel-track img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    opacity: 0;
+    animation: fadeSlide 15s infinite;
+}
+
+.carrossel-track img:nth-child(1) { animation-delay: 0s; }
+.carrossel-track img:nth-child(2) { animation-delay: 5s; }
+.carrossel-track img:nth-child(3) { animation-delay: 10s; }
+
+@keyframes fadeSlide {
+    0%   { opacity: 0; }
+    5%   { opacity: 1; }
+    28%  { opacity: 1; }
+    33%  { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+/* gradiente da esquerda pra direita, por cima das imagens, atrás do texto */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background-image: linear-gradient(
+        90deg,
+        rgba(244, 244, 244, 0.95) 0%,
+        rgba(244, 244, 244, 0.75) 35%,
+        rgba(244, 244, 244, 0.25) 65%,
+        rgba(244, 244, 244, 0) 100%
+    );
 }
 
 .hero-content {
+    position: relative;
+    z-index: 2;
+
     width: min(1200px, calc(100% - 40px));
-
     margin: 0 auto;
-
     padding: 80px 0;
 }
 
@@ -75,11 +123,13 @@
 }
 
 .category-grid a {
-    min-height: 120px;
+    min-height: 180px;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 12px;
 
     padding: 20px;
 
@@ -98,6 +148,12 @@
         transform 0.2s ease,
         box-shadow 0.2s ease,
         border-color 0.2s ease;
+}
+
+.category-grid a img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
 }
 
 .category-grid a:hover {
@@ -280,7 +336,7 @@
     }
 
     .category-grid a {
-        min-height: 90px;
+        min-height: 150px;
     }
 
 
