@@ -5,10 +5,10 @@
             <h3>Navegação</h3>
             <ul>
                 <li><a href="/../index.html">Início</a></li>
-                <li><a href="/../pages/produtos.php">Produtos</a></li>
-                <li><a href="/../pages/sobre.php">Sobre nós</a></li>
-                <li><a href="/../pages/contato.php">Contato</a></li>
-                <li><a href="/../pages/missao.php">Missão, visão e valores</a></li>
+                <li><a href="../pages/produtos.php">Produtos</a></li>
+                <li><a href="../pages/sobre.php">Sobre nós</a></li>
+                <li><a href="../pages/contato.php">Contato</a></li>
+                <li><a href="../pages/missao.php">Missão, visão e valores</a></li>
             </ul>
         </div>
 

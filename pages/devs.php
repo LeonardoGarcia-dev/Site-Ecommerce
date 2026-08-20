@@ -14,31 +14,13 @@
         name="description"
         content="E-commerce - Página inicial">
 
-    <title>LDesenvolvedores</title>
-    <!-- global css -->
-    <link
-        rel="stylesheet"
-        href="/../assets/css/global.css">
-
-    <!-- header css -->
-    <link
-        rel="stylesheet"
-        href="/../assets/css/header.css">
-
-    <!-- home css -->
-    <link
-        rel="stylesheet"
-        href="/../assets/css/home.css">
-
-    <!-- footer css -->
-    <link
-        rel="stylesheet"
-        href="/../assets/css/footer.css">
-
-    <!-- sidebar css -->
-    <link
-        rel="stylesheet"
-        href="/../assets/css/sidebar.css">
+    <title>Desenvolvedores</title>
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/header.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/footer.css">
+    <link rel="stylesheet" href="./assets/css/footer.css">
+    <link rel="stylesheet" href="./assets/css/sidebar.css">
 
 </head>
 
