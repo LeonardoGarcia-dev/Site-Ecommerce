@@ -104,3 +104,120 @@ select:focus-visible {
     }
 
 }
+
+/* MISSÃO, VISÃO E VALORES */
+
+.missao {
+    width: min(1100px, calc(100% - 40px));
+    margin: 40px auto;
+}
+
+.missao-introducao {
+    background-color: #002040;
+    color: #f5f7fa;
+    padding: 50px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.missao-introducao h1 {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+}
+
+.missao-introducao h2 {
+    color: #f5f7fa;
+    font-size: 1.8rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.missao-introducao p {
+    color: #d4d4d8;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.missao-visao {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.missao-card,
+.visao-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(20, 30, 50, 0.06);
+}
+
+.missao-card h2,
+.visao-card h2 {
+    font-size: 1.8rem;
+    color: #002040;
+    margin-bottom: 15px;
+}
+
+.missao-card p,
+.visao-card p {
+    color: #333;
+    text-align: justify;
+}
+
+.valores {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(20, 30, 50, 0.06);
+}
+
+.valores > h2 {
+    font-size: 2rem;
+    color: #002040;
+    margin-bottom: 25px;
+}
+
+.valor {
+    border-left: 4px solid #a1a1aa;
+    padding-left: 18px;
+    margin-bottom: 22px;
+}
+
+.valor h3 {
+    font-size: 1.2rem;
+    color: #002040;
+    margin-bottom: 8px;
+}
+
+.valor p {
+    color: #555;
+    text-align: justify;
+}
+
+@media (max-width: 768px) {
+
+    .missao {
+        width: min(100% - 30px, 600px);
+    }
+
+    .missao-introducao {
+        padding: 30px;
+    }
+
+    .missao-introducao h1 {
+        font-size: 1.8rem;
+    }
+
+    .missao-visao {
+        grid-template-columns: 1fr;
+    }
+
+    .missao-card,
+    .visao-card,
+    .valores {
+        padding: 25px;
+    }
+
+}
