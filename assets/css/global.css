@@ -12,8 +12,8 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    color: #222;
-    background-color: #fff;
+    color: #0b0b0b;
+    background-color: #f0f0f0;
 }
 
 img {
@@ -59,7 +59,7 @@ ol {
 
     border-radius: 8px;
 
-    background-color: #111;
+    background-color: #0b0b0b;
     color: #fff;
 
     font-size: 15px;
@@ -103,4 +103,10 @@ select:focus-visible {
         font-size: 15px;
     }
 
+}
+
+button {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: 1px solid #0b0b0b;
+    border-radius: 8px;
 }
