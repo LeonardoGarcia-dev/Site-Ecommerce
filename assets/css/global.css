@@ -104,3 +104,9 @@ select:focus-visible {
     }
 
 }
+
+button {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    border: 1px solid #0b0b0b;
+    border-radius: 8px;
+}
