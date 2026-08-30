@@ -78,32 +78,6 @@
             <br>
         </section>
 
-        <!-- Missão, Visão e Valores -->
-        <section class="sobre-mvv">
-            <h2>Missão, Visão e Valores</h2>
-            
-            <article>
-                <h3>Missão</h3>
-                <p>Entregar estilo, humor e atitude para festas e eventos através de óculos pretos marcantes e personalizáveis.</p>
-                <br>
-            </article>
-
-            <article>
-                <h3>Visão</h3>
-                <p>Ser a marca de óculos de festa mais reconhecida e fotografada nos maiores eventos do país.</p>
-                <br>
-            </article>
-
-            <article>
-                <h3>Valores</h3>
-                <ul>
-                    <li>Autenticidade: Liberdade para se expressar e brincar com estilos e frases.</li>
-                    <li>Presença Marcante: O acessório ideal para garantir a melhor foto e visual.</li>
-                    <li>Descontração: Moda leve, divertida e pronta para celebrações.</li>
-                </ul>
-                <br>
-            </article>
-        </section>
     </main>
 
     <?php

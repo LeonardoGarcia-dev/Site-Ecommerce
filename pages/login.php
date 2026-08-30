@@ -71,69 +71,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once __DIR__ . "/../components/sidebar.php";
     ?>
 
-    <div class="login-container">
-        <div class="login-card">
+    <main>
 
-            <h1>Bem-vindo!</h1>
-
-            <p class="login-subtitle">
-                Entre na sua conta Polaris
+        <section class="login">
+        <div class="login">
+            <h1>Login</h1>
+            <p>
+                Em desenvolvimento...
             </p>
-
-            <?php
-            if ($mensagem != "") {
-                echo "<p class='mensagem'>$mensagem</p>";
-            }
-            ?>
-
-            <form method="POST" action="login.php">
-
-                <div class="campo">
-    <label for="email">E-mail</label>
-
-    <div class="input-container">
-        <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Digite seu e-mail"
-            required
-        >
-    </div>
-</div>
-
-<div class="campo">
-    <label for="senha">Senha</label>
-
-    <div class="input-container">
-        <input
-            type="password"
-            id="senha"
-            name="senha"
-            placeholder="Digite sua senha"
-            required
-        >
-    </div>
-</div>
-
-                <div class="opcoes-login">
-                    <a href="refazersenha.php">Esqueci minha senha</a>
-                </div>
-
-                <button type="submit">
-                    Entrar
-                </button>
-            </form>
-
-            <div class="cadastro">
-                <span>Não tem uma conta?</span>
-                <a href="cadastro.php">Criar conta</a>
-            </div>
-
-            <a href="../index.php" class="voltar">
-                Voltar para o início
-            </a>
-
         </div>
 
     </div>
