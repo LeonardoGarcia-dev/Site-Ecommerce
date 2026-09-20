@@ -1,1 +1,0 @@
-<!-- rapaziada criei esse aq pra gente conectar o banco de dados -->
