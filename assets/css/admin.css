@@ -1,0 +1,11 @@
+.admin-page{width:min(1200px,calc(100% - 30px));margin:36px auto;color:#002040}
+.admin-nav,.admin-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:18px 0}
+.admin-nav a,.admin-button{background:#002040;color:#fff;border-radius:7px;padding:10px 16px;border:0;cursor:pointer}
+.admin-nav a:hover,.admin-button:hover{background:#17466d}
+.admin-card{background:#fff;border-radius:12px;padding:24px;box-shadow:0 8px 20px rgba(20,30,50,.08);margin:18px 0}
+.admin-form{display:grid;gap:12px;max-width:650px}.admin-form input,.admin-form select,.admin-form textarea{padding:10px;border:1px solid #cbd5e1;border-radius:6px}
+.admin-table{width:100%;border-collapse:collapse;background:#fff}.admin-table th,.admin-table td{padding:10px;border-bottom:1px solid #e2e8f0;text-align:left}.admin-table th{background:#002040;color:#fff}
+.admin-table .actions{white-space:nowrap}.admin-table a{color:#17466d;text-decoration:underline}
+.admin-message{padding:12px;border-radius:7px;background:#e2f7e9;color:#14532d}.admin-error{background:#fee2e2;color:#991b1b}
+.report-total{text-align:right;font-weight:bold}.report-items{padding-left:25px;font-size:.95em}
+@media(max-width:700px){.admin-table{font-size:.85em;display:block;overflow-x:auto}}

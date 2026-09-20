@@ -24,12 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$resultado) {
         $mensagem = "Não encontrado";
     } else {
-        if ($senha == $resultado["senha"]) {
+        if (password_verify($senha, $resultado["senha"])) {
 
             setcookie("usuario", $usuario, time() + (86400 * 30));
 
             $_SESSION["sessionConectado"] = TRUE;
             $_SESSION["sessionLogin"] = $resultado["nome"];
+            $_SESSION["sessaoAdmin"] = (bool) ($resultado["admin"] ?? false);
 
             header("Location: usuariohome.php");
             exit;
@@ -119,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
                 <div class="opcoes-login">
-                    <a href="refazersenha.php">Esqueci minha senha</a>
+                    <a href="../esqueci.php">Esqueci minha senha</a>
                 </div>
 
                 <button type="submit">

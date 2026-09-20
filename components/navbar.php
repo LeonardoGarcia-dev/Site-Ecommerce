@@ -1,5 +1,7 @@
 <?php
-
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 ?>
 
 <header>
@@ -13,6 +15,9 @@
             <li><a href="/pages/produtos.php">Produtos</a></li>
             <li><a href="/pages/sobre.php">Sobre Nós</a></li>
             <li><a href="/pages/contato.php">Contato</a></li>
+            <?php if (!empty($_SESSION['sessaoAdmin'])): ?>
+                <li><a href="/crud/index.php">Administração</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
