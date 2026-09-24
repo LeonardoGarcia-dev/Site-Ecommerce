@@ -4,15 +4,15 @@
 
 <header>
     <div class="logo">
-        <a href="/../index.php"><img src="/assets/images/logo.png" alt="logo"> </a>
+        <a href="/index.php"><img src="/assets/images/logo.png" alt="logo"> </a>
     </div>
 
     <nav>
         <ul>
-            <li><a href="/../index.php">Início</a></li>
-            <li><a href="/../pages/produtos.php">Produtos</a></li>
-            <li><a href="/../pages/sobre.php">Sobre Nós</a></li>
-            <li><a href="/../pages/contato.php">Contato</a></li>
+            <li><a href="../index.php">Início</a></li>
+            <li><a href="/pages/produtos.php">Produtos</a></li>
+            <li><a href="/pages/sobre.php">Sobre Nós</a></li>
+            <li><a href="/pages/contato.php">Contato</a></li>
         </ul>
     </nav>
 
