@@ -111,13 +111,6 @@ $omitirCancelados = isset($_POST["cancelados"]);
                     $data = date("d/m/Y", strtotime($linha["data"]));
                     $nome = htmlspecialchars($linha["nome"] ?? "");
 
-                    echo "<tr>
-                            <td>$id_compra</td>
-                            <td>$status</td>
-                            <td>$data</td>
-                            <td colspan='5'>$nome</td>
-                          </tr>";
-
                     $sqlItens = "SELECT produto.nome, campo_produto.quantidade, campo_produto.valor_unitario,
                                         campo_produto.quantidade * campo_produto.valor_unitario AS subtotal
                                  FROM campo_produto
@@ -128,24 +121,50 @@ $omitirCancelados = isset($_POST["cancelados"]);
                     $selectItens = $conexao->prepare($sqlItens);
                     $selectItens->bindParam(":id_compra", $id_compra);
                     $selectItens->execute();
-
+                    
+                    // Buscamos todos os itens antes de imprimir
+                    $itens = $selectItens->fetchAll(PDO::FETCH_ASSOC);
                     $totalCompra = 0;
+                    $primeiroItem = true; // Variável para controlar a primeira linha
 
-                    while ($linhaItem = $selectItens->fetch(PDO::FETCH_ASSOC)) {
+                    if (count($itens) > 0) {
+                        foreach ($itens as $linhaItem) {
+                            $nomeProduto = htmlspecialchars($linhaItem["nome"]);
+                            $quantidade = $linhaItem["quantidade"];
+                            $valorUnitario = number_format($linhaItem["valor_unitario"], 2, ",", ".");
+                            $subtotal = number_format($linhaItem["subtotal"], 2, ",", ".");
 
-                        $nomeProduto = htmlspecialchars($linhaItem["nome"]);
-                        $quantidade = $linhaItem["quantidade"];
-                        $valorUnitario = number_format($linhaItem["valor_unitario"], 2, ",", ".");
-                        $subtotal = number_format($linhaItem["subtotal"], 2, ",", ".");
+                            $totalCompra += $linhaItem["subtotal"];
 
-                        $totalCompra += $linhaItem["subtotal"];
+                            echo "<tr>";
+                            
+                            // Se for o primeiro produto, imprime os dados do cliente e compra
+                            if ($primeiroItem) {
+                                echo "<td>$id_compra</td>
+                                      <td>$status</td>
+                                      <td>$data</td>
+                                      <td>$nome</td>";
+                                $primeiroItem = false;
+                            } else {
+                                // Se for o 2º produto em diante, deixa um espaço vazio nas primeiras colunas
+                                echo "<td colspan='4'></td>";
+                            }
 
+                            // Imprime os dados do produto na mesma linha
+                            echo "<td>$nomeProduto</td>
+                                  <td>$quantidade</td>
+                                  <td>R$ $valorUnitario</td>
+                                  <td>R$ $subtotal</td>
+                                </tr>";
+                        }
+                    } else {
+                        // Caso a compra não tenha itens (evita que a compra não apareça)
                         echo "<tr>
-                                <td colspan='4'></td>
-                                <td>$nomeProduto</td>
-                                <td>$quantidade</td>
-                                <td>R$ $valorUnitario</td>
-                                <td>R$ $subtotal</td>
+                                <td>$id_compra</td>
+                                <td>$status</td>
+                                <td>$data</td>
+                                <td>$nome</td>
+                                <td colspan='4'>Nenhum produto</td>
                               </tr>";
                     }
 
