@@ -1,10 +1,9 @@
 <?php
 
-require_once __DIR__ . "/../PHPMailer/PHPMailer/src/PHPMailer.php";
-require_once __DIR__ . "/../PHPMailer/PHPMailer/src/SMTP.php";
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+// Tenta incluir os ficheiros do PHPMailer
+require_once __DIR__ . '/../PHPMailer/PHPMailer/src/Exception.php';
+require_once __DIR__ . '/../PHPMailer/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/../PHPMailer/PHPMailer/src/SMTP.php';
 
 include_once __DIR__ . "/database.php";
 
@@ -14,8 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 function protegeAdmin()
 {
-    $autorizadoAdmin =
-        (isset($_SESSION["sessaoAdmin"]) and $_SESSION["sessaoAdmin"] == true);
+    $autorizadoAdmin = (isset($_SESSION["sessaoAdmin"]) and $_SESSION["sessaoAdmin"] == true);
 
     if (!$autorizadoAdmin) {
         header("Location: /index.php");
@@ -49,14 +47,21 @@ function EnviaEmail(
     $pEmailDestino,
     $pAssunto,
     $pHtml,
-    $pUsuario = "seu_email_aqui",
-    $pSenha = "sua_senha_aqui",
+    $pUsuario = "ecommercepolaris5@gmail.com",
+    $pSenha = "ycsvbcxraroskloh",
     $pSMTP = "smtp.gmail.com"
 ) {
     try {
-        $mail = new PHPMailer();
-        $mail->isSMTP();
+        if (class_exists('\PHPMailer\PHPMailer\PHPMailer')) {
+            $mail = new \PHPMailer\PHPMailer\PHPMailer();
+        } elseif (class_exists('PHPMailer')) {
+            $mail = new \PHPMailer();
+        } else {
+            return false;
+        }
 
+        $mail->isSMTP();
+        $mail->CharSet = 'UTF-8';
         $mail->Host = $pSMTP;
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = "tls";
@@ -74,7 +79,7 @@ function EnviaEmail(
         $mail->Username = $pUsuario;
         $mail->Password = $pSenha;
         $mail->From = $pUsuario;
-        $mail->FromName = "Polaris Óculos";
+        $mail->FromName = "Polaris Óculos Redefinir Senha";
 
         $mail->addAddress($pEmailDestino, "Usuário");
         $mail->isHTML(true);
@@ -82,9 +87,8 @@ function EnviaEmail(
         $mail->Body = $pHtml;
 
         return $mail->send();
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
         return false;
     }
 }
-
 ?>
