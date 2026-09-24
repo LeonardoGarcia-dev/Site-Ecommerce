@@ -79,7 +79,7 @@ function EnviaEmail(
         $mail->Username = $pUsuario;
         $mail->Password = $pSenha;
         $mail->From = $pUsuario;
-        $mail->FromName = "Polaris Óculos";
+        $mail->FromName = "Polaris Óculos Redefinir Senha";
 
         $mail->addAddress($pEmailDestino, "Usuário");
         $mail->isHTML(true);
