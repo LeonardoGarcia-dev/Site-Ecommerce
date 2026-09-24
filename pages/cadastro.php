@@ -12,20 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = trim($_POST["nome"]);
     $sobrenome = trim($_POST["sobrenome"]);
     $email = trim($_POST["email"]);
-   // $cpf = trim($_POST["cpf"]);
     $senha = $_POST["senha"];
-
-
-    /*
-     * REMOVE PONTOS E HÍFEN DO CPF
-     *
-     * Exemplo:
-     * 123.456.789-09
-     *
-     * vira:
-     * 12345678909
-     */
-
 
 
     /*
@@ -63,75 +50,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
 
-        if ($stmt->fetch(PDO::FETCH_ASSOC)) {
+        /*
+         * CRIPTOGRAFA A SENHA
+         */
 
-            $mensagem = "Este CPF já está cadastrado.";
-            $tipoMensagem = "erro";
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+
+        /*
+         * INSERE O USUÁRIO NO BANCO
+         *
+         * O banco possui apenas a coluna "nome".
+         *
+         * Será salvo:
+         *
+         * Leonardo Cavalcante
+         */
+
+        $sql = "INSERT INTO usuario
+                (nome, email, senha)
+                VALUES
+                (:nome, :email, :senha)";
+
+        $stmt = $conexao->prepare($sql);
+
+        $stmt->bindParam(":nome", $nomeCompleto);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":senha", $senhaHash);
+
+
+        /*
+         * EXECUTA O CADASTRO
+         */
+
+        if ($stmt->execute()) {
+
+            $mensagem = "Conta criada com sucesso!";
+            $tipoMensagem = "sucesso";
+
+
+            /*
+             * LIMPA OS CAMPOS
+             */
+
+            $nome = "";
+            $sobrenome = "";
+            $email = "";
 
         } else {
 
-
-            /*
-             * CRIPTOGRAFA A SENHA
-             */
-
-            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
-
-            /*
-             * INSERE O USUÁRIO NO BANCO
-             *
-             * O banco possui apenas a coluna "nome".
-             *
-             * Será salvo:
-             *
-             * Leonardo Cavalcante
-             */
-
-            $sql = "INSERT INTO usuario
-                    (nome, email, senha)
-                    VALUES
-                    (:nome, :email, :senha)";
-
-            $stmt = $conexao->prepare($sql);
-
-            $stmt->bindParam(":nome", $nomeCompleto);
-            $stmt->bindParam(":email", $email);
-
-            $stmt->bindParam(":senha", $senhaHash);
-
-
-            /*
-             * EXECUTA O CADASTRO
-             */
-
-            if ($stmt->execute()) {
-
-                $mensagem = "Conta criada com sucesso!";
-                $tipoMensagem = "sucesso";
-
-
-                /*
-                 * LIMPA OS CAMPOS
-                 */
-
-                $nome = "";
-                $sobrenome = "";
-                $email = "";
-                $cpf = "";
-
-            } else {
-
-                $mensagem = "Não foi possível criar a conta.";
-                $tipoMensagem = "erro";
-            }
+            $mensagem = "Não foi possível criar a conta.";
+            $tipoMensagem = "erro";
         }
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -144,7 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/home.css">
-    <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="../assets/css/cadastro.css">
