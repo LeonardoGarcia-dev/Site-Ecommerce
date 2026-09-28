@@ -101,4 +101,188 @@ function EnviaEmail(
         return false;
     }
 }
+
+function EnviaEmailContato(
+    $pNomeCliente,
+    $pEmailCliente,
+    $pAssunto,
+    $pMensagem,
+    $pUsuario = "ecommercepolaris5@gmail.com",
+    $pSenha = "ycsvbcxraroskloh",
+    $pSMTP = "smtp.gmail.com"
+) {
+    try {
+
+        // Verifica se o PHPMailer está disponível
+        if (class_exists('\PHPMailer\PHPMailer\PHPMailer')) {
+
+            $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+
+        } elseif (class_exists('PHPMailer')) {
+
+            $mail = new \PHPMailer(true);
+
+        } else {
+
+            die("ERRO: PHPMailer não foi encontrado.");
+        }
+
+
+        // CONFIGURAÇÃO SMTP
+
+        $mail->isSMTP();
+
+        $mail->CharSet = 'UTF-8';
+
+        $mail->Host = $pSMTP;
+
+        $mail->SMTPAuth = true;
+
+        $mail->SMTPSecure = "tls";
+
+        $mail->Port = 587;
+
+        $mail->Username = $pUsuario;
+
+        $mail->Password = $pSenha;
+
+
+        // REMETENTE
+
+        $mail->setFrom(
+            $pUsuario,
+            "Polaris E-commerce"
+        );
+
+
+        // DESTINATÁRIO
+
+        $mail->addAddress(
+            $pUsuario,
+            "Polaris E-commerce"
+        );
+
+
+        // QUEM ENVIOU A MENSAGEM
+
+        $mail->addReplyTo(
+            $pEmailCliente,
+            $pNomeCliente
+        );
+
+
+        // CONTEÚDO
+
+        $mail->isHTML(true);
+
+        $mail->Subject = "Contato Polaris - " . $pAssunto;
+
+
+        // Proteção dos dados
+
+        $nome = htmlspecialchars(
+            $pNomeCliente,
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $email = htmlspecialchars(
+            $pEmailCliente,
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $assunto = htmlspecialchars(
+            $pAssunto,
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $mensagem = nl2br(
+            htmlspecialchars(
+                $pMensagem,
+                ENT_QUOTES,
+                'UTF-8'
+            )
+        );
+
+
+        // HTML do e-mail
+
+        $mail->Body = "
+
+        <div style='
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #183653;
+        '>
+
+            <h2 style='color: #082746;'>
+                Nova mensagem de contato
+            </h2>
+
+            <p>
+                Uma nova mensagem foi enviada
+                através do site Polaris E-commerce.
+            </p>
+
+            <hr>
+
+            <p>
+                <strong>Nome:</strong><br>
+                {$nome}
+            </p>
+
+            <p>
+                <strong>E-mail:</strong><br>
+                {$email}
+            </p>
+
+            <p>
+                <strong>Assunto:</strong><br>
+                {$assunto}
+            </p>
+
+            <p>
+                <strong>Mensagem:</strong><br>
+                {$mensagem}
+            </p>
+
+            <hr>
+
+            <p style='
+                color: #718096;
+                font-size: 12px;
+            '>
+                Esta mensagem foi enviada pelo
+                formulário de contato do Polaris.
+            </p>
+
+        </div>
+
+        ";
+
+
+        // Versão sem HTML
+
+        $mail->AltBody =
+            "Nova mensagem de contato - Polaris\n\n" .
+            "Nome: " . $pNomeCliente . "\n" .
+            "E-mail: " . $pEmailCliente . "\n" .
+            "Assunto: " . $pAssunto . "\n\n" .
+            "Mensagem:\n" . $pMensagem;
+
+
+        // Envia
+
+        return $mail->send();
+
+
+    } catch (\Exception $e) {
+
+    return false;
+    }
+}
+
 ?>
