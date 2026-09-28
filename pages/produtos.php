@@ -12,7 +12,7 @@ $produtos = [
         'preco'          => 9.00,
         'estoque'        => 0,
         'imagens'        => [
-            '/../assets/images/oculosComum.png',
+            '../assets/images/oculosComum.png',
         ],
         'descricao'      => '"Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
@@ -26,7 +26,7 @@ $produtos = [
         'preco'          => 12.00,
         'estoque'        => 0,
         'imagens'        => [
-            '/../assets/images/oculosPersonalizado.png',
+            '../assets/images/oculosPersonalizado.png',
         ],
         'descricao'      => 'Sua personalidade em destaque: o óculos que transforma a sua mensagem no seu maior estilo.',
         'vendedor'       => 'Polaris Óculos',
@@ -75,7 +75,7 @@ require_once __DIR__ . "/../components/sidebar.php";
 ?>
 
     <nav class="breadcrumb">
-        <a href="/../index.php">Início</a> ›
+        <a href="../index.php">Início</a> ›
         <span aria-current="true"><?php echo htmlspecialchars($tituloPagina); ?></span>
     </nav>
 
@@ -116,6 +116,6 @@ require_once __DIR__ . "/../components/sidebar.php";
 require_once __DIR__ . "/../components/footer.php";
 ?>
 
-    <script src="/../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
 </body>
 </html>

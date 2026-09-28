@@ -8,9 +8,13 @@
 // - 'incluir' soma quantidade; 'excluir' decrementa (e remove se chegar a 1,
 //   como no algoritmo original); 'fechar' fecha o carrinho
 //
-// Ainda sem banco (vitrine). O ponto onde entraria o INSERT em COMPRA /
-// COMPRA_PRODUTO do algoritmo original está marcado mais abaixo, dentro
-// do "elseif ($operacao === 'fechar')".
+// Ao fechar o carrinho, grava a compra no banco: um registro em COMPRA
+// e um registro em CAMPO_PRODUTO para cada item, exatamente como o
+// admin/relatorio.php (Monitor de vendas) espera para conseguir listar.
+// -----------------------------------------------------------------------
+
+require_once __DIR__ . "/../config/database.php";
+$conexao = conecta();
 // -----------------------------------------------------------------------
 
 // -----------------------------------------------------------------------
@@ -26,7 +30,7 @@ $produtos = [
         'preco'          => 9.00,
         'estoque'        => 0,
         'imagens'        => [
-            '/../assets/images/oculosComum.png',
+            '../assets/images/oculosComum.png',
         ],
         'descricao'      => '"Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
@@ -40,7 +44,7 @@ $produtos = [
         'preco'          => 12.00,
         'estoque'        => 0,
         'imagens'        => [
-            '/../assets/images/oculosPersonalizado.png',
+            '../assets/images/oculosPersonalizado.png',
         ],
         'descricao'      => 'Sua personalidade em destaque: o óculos que transforma a sua mensagem no seu maior estilo.',
         'vendedor'       => 'Polaris Óculos',
@@ -109,18 +113,76 @@ if ($operacao && $idProduto && isset($produtos[$idProduto])) {
 
 if ($operacao === 'fechar') {
 
-    // ---------------------------------------------------------------
-    // Aqui é onde entraria a parte do algoritmo original que:
-    //   - confere SESSAO["STATUSCONECTADO"] / SESSAO["LOGIN"]
-    //   - insere em COMPRA (data, usuario, status "RESERVADO")
-    //   - pega lastInsertId() como $id_compra
-    //   - insere cada item da sessão em COMPRA_PRODUTO
-    // Como o projeto ainda está na fase de vitrine (sem banco), por
-    // enquanto só simulamos o fechamento esvaziando o carrinho.
-    // ---------------------------------------------------------------
-    $_SESSION['carrinho'] = [];
-    header("Location: carrinho.php?fechado=1");
-    exit;
+    // Precisa estar logado para finalizar a compra (é o que gera o
+    // fk_usuario da tabela COMPRA, usado inclusive no relatório do admin).
+    if (!isset($_SESSION['sessaoUsuario']) || $_SESSION['sessaoUsuario'] == '') {
+        header("Location: carrinho.php?erroCompra=login");
+        exit;
+    }
+
+    if (empty($_SESSION['carrinho'])) {
+        header("Location: carrinho.php");
+        exit;
+    }
+
+    try {
+        // Por padrão o PDO não lança exceção em erro de SQL (fica em modo
+        // silencioso); aqui ligamos as exceções só para esta conexão, pra
+        // conseguir dar rollback caso algum item do carrinho não exista
+        // (ou não exista mais) na tabela PRODUTO.
+        $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $conexao->beginTransaction();
+
+        // 1) COMPRA: um registro por fechamento de carrinho.
+        $insereCompra = $conexao->prepare(
+            "INSERT INTO compra (data, fk_usuario, status)
+             VALUES (NOW(), :fk_usuario, 'reservado')
+             RETURNING id_compra"
+        );
+        $fkUsuario = $_SESSION['sessaoUsuario'];
+        $insereCompra->bindParam(":fk_usuario", $fkUsuario);
+        $insereCompra->execute();
+        $idCompra = $insereCompra->fetchColumn();
+
+        // 2) CAMPO_PRODUTO: um registro por item do carrinho, ligado à
+        // compra recém-criada. Preço gravado é o valor no momento da
+        // compra (não muda se o produto mudar de preço depois).
+        $insereItem = $conexao->prepare(
+            "INSERT INTO campo_produto (fk_compra, fk_produto, quantidade, valor_unitario)
+             VALUES (:fk_compra, :fk_produto, :quantidade, :valor_unitario)"
+        );
+
+        foreach ($_SESSION['carrinho'] as $idItem => $dadosItem) {
+            if (!isset($produtos[$idItem])) {
+                continue;
+            }
+
+            $insereItem->bindValue(":fk_compra", $idCompra, PDO::PARAM_INT);
+            $insereItem->bindValue(":fk_produto", $idItem, PDO::PARAM_INT);
+            $insereItem->bindValue(":quantidade", $dadosItem['qtdade'], PDO::PARAM_INT);
+            $insereItem->bindValue(":valor_unitario", $produtos[$idItem]['preco']);
+            $insereItem->execute();
+        }
+
+        $conexao->commit();
+
+        $_SESSION['carrinho'] = [];
+        header("Location: carrinho.php?fechado=1");
+        exit;
+
+    } catch (PDOException $e) {
+
+        if ($conexao->inTransaction()) {
+            $conexao->rollBack();
+        }
+
+        // Não foi possível gravar a compra (ex: produto do carrinho não
+        // está cadastrado na tabela PRODUTO do banco). O carrinho é
+        // mantido para o cliente poder tentar de novo.
+        header("Location: carrinho.php?erroCompra=1");
+        exit;
+    }
 }
 
 // Depois de tratar uma operação vinda por link (GET), redireciona pra
@@ -157,6 +219,7 @@ foreach ($_SESSION['carrinho'] as $idItem => $dadosItem) {
 }
 
 $carrinhoFoiFechado = isset($_GET['fechado']);
+$erroCompra = $_GET['erroCompra'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -184,7 +247,7 @@ require_once __DIR__ . "/../components/sidebar.php";
 ?>
 
     <nav class="breadcrumb">
-        <a href="/../index.php">Início</a> ›
+        <a href="../index.php">Início</a> ›
         <span aria-current="true">Carrinho</span>
     </nav>
 
@@ -197,6 +260,16 @@ require_once __DIR__ . "/../components/sidebar.php";
                 <?php if ($carrinhoFoiFechado): ?>
                     <div class="cart-message">
                         Compra fechada com sucesso!
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($erroCompra === 'login'): ?>
+                    <div class="cart-message cart-message-erro">
+                        Você precisa <a href="login.php">entrar na sua conta</a> para finalizar a compra.
+                    </div>
+                <?php elseif ($erroCompra): ?>
+                    <div class="cart-message cart-message-erro">
+                        Não foi possível finalizar a compra. Tente novamente em instantes.
                     </div>
                 <?php endif; ?>
 
@@ -299,6 +372,6 @@ require_once __DIR__ . "/../components/sidebar.php";
 require_once __DIR__ . "/../components/footer.php";
 ?>
 
-    <script src="/../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
 </body>
 </html>
