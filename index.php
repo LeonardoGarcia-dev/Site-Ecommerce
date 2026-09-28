@@ -49,12 +49,12 @@
                 </h2>
                 
                 <div class="category-grid">
-                    <a href="pages/produtos.php?categoria=comum">
+                    <a href="pages/produto.php?id=1">
                         <img src="/../assets/images/oculosComum.png" alt="Óculos Comum" />
                         <span>Comum</span>
                     </a>
-                    <a href="pages/produtos.php?categoria=personalizado">
-                        <img src="/../assets/images/oculosPersonalizado.png" alt="Óculos Personalizado" />
+                    <a href="pages/produto.php?id=2">
+                        <img src="/../assets/images/oculosPersonalizado.png" alt="Óculos Personalizado" alt="Óculos Personalizado" />
                         <span>Personalizado</span>
                     </a>
                 </div>
