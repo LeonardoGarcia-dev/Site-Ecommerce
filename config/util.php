@@ -6,6 +6,7 @@ require_once __DIR__ . '/../PHPMailer/PHPMailer/src/PHPMailer.php';
 require_once __DIR__ . '/../PHPMailer/PHPMailer/src/SMTP.php';
 
 include_once __DIR__ . "/database.php";
+require_once __DIR__ . "/base_url.php";
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -16,7 +17,7 @@ function protegeAdmin()
     $autorizadoAdmin = (isset($_SESSION["sessaoAdmin"]) and $_SESSION["sessaoAdmin"] == true);
 
     if (!$autorizadoAdmin) {
-        header("Location: /index.php");
+        header("Location: " . BASE_URL . "/index.php");
         exit;
     }
 }
@@ -26,7 +27,7 @@ function protegeLogin()
     $autorizadoLogin = (isset($_SESSION["sessaoUsuario"]) and $_SESSION["sessaoUsuario"] != "");
 
     if (!$autorizadoLogin) {
-        header("Location: /pages/login.php");
+        header("Location: " . BASE_URL . "/pages/login.php");
         exit;
     }
 }

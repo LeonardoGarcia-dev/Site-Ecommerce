@@ -22,7 +22,9 @@ if ($_POST) {
     if ($linha) {
         $token = $linha['senha'];
 
-        $urlSite = isset($_SESSION['sessaoSite']) ? $_SESSION['sessaoSite'] : "http://localhost/Site-Ecommerce";
+        $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $urlPadrao = $protocolo . $_SERVER['HTTP_HOST'] . BASE_URL;
+        $urlSite = isset($_SESSION['sessaoSite']) ? $_SESSION['sessaoSite'] : $urlPadrao;
 
         $html = "<h4>Redefinir sua senha</h4>
                  Clique no link para redefinir sua senha:<br>" . 

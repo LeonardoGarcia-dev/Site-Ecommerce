@@ -8,7 +8,7 @@ $mensagem = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $usuario = $_POST["email"];
+    $usuario = trim($_POST["email"]);
     $senha = $_POST["senha"];
 
     $sql = "SELECT id_usuario, nome, email, senha, admin
@@ -24,7 +24,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$resultado) {
         $mensagem = "Não encontrado";
     } else {
-        if (password_verify($senha, $resultado["senha"])) {
+        $hashArmazenado = (string) $resultado["senha"];
+
+        // Verificação normal: senha gravada com password_hash().
+        $senhaConfere = password_verify($senha, $hashArmazenado);
+
+        // Compatibilidade: se o registro foi criado/alterado fora do
+        // fluxo do sistema (ex: inserido direto no banco de dados) a
+        // senha pode ter ficado gravada em texto puro, sem hash. Nesse
+        // caso password_verify() nunca vai bater, mesmo com a senha certa.
+        // Aqui comparamos em texto puro como último recurso e, se bater,
+        // aproveitamos para já corrigir o registro gravando o hash correto,
+        // assim os próximos logins passam a usar password_verify() normalmente.
+        if (!$senhaConfere && $senha !== "" && hash_equals($hashArmazenado, $senha)) {
+            $senhaConfere = true;
+
+            $novoHash = password_hash($senha, PASSWORD_DEFAULT);
+            $atualiza = $conexao->prepare("UPDATE usuario SET senha = :senha WHERE id_usuario = :id");
+            $atualiza->bindParam(":senha", $novoHash);
+            $atualiza->bindParam(":id", $resultado["id_usuario"]);
+            $atualiza->execute();
+        }
+
+        if ($senhaConfere) {
 
             setcookie("usuario", $usuario, time() + (86400 * 30));
 
@@ -39,10 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             exit;
 
-            } else {
+        } else {
             $mensagem = "Senha incorreta";
-            }
         }
+    }
 }
 ?>
 
@@ -149,6 +171,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once __DIR__ . "/../components/footer.php";
     ?>
 
-    <script src="/../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
 </body>
 </html>
