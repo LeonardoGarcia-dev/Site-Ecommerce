@@ -21,6 +21,16 @@ function protegeAdmin()
     }
 }
 
+function protegeLogin()
+{
+    $autorizadoLogin = (isset($_SESSION["sessaoUsuario"]) and $_SESSION["sessaoUsuario"] != "");
+
+    if (!$autorizadoLogin) {
+        header("Location: /pages/login.php");
+        exit;
+    }
+}
+
 function ValorSQL($paramConn, $paramSQL)
 {
     $linha = $paramConn->query($paramSQL)->fetch();

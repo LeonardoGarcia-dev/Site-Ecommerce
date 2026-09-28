@@ -1,5 +1,15 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$estaLogado = (isset($_SESSION["sessaoUsuario"]) and $_SESSION["sessaoUsuario"] != "");
+
+$linkUsuario = $estaLogado
+    ? "/pages/perfil.php?id=" . $_SESSION["sessaoUsuario"]
+    : "/pages/login.php";
+
 ?>
 
 <header>
@@ -22,7 +32,7 @@
             <img src="/assets/images/carrinho.png" alt="Carrinho">
         </a>
 
-        <a href="/pages/login.php">
+        <a href="<?= $linkUsuario ?>">
             <img src="/assets/images/user.png" alt="Usuário">
         </a>
 

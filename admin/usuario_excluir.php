@@ -6,7 +6,7 @@ $conexao = conecta();
 
 $id_usuario = $_GET["id"];
 
-$sql = "UPDATE usuario SET excluido = TRUE WHERE id_usuario = :id";
+$sql = "UPDATE usuario SET excluido = TRUE, data_exclusao = CURRENT_TIMESTAMP WHERE id_usuario = :id";
 $stmt = $conexao->prepare($sql);
 $stmt->bindParam(":id", $id_usuario);
 $stmt->execute();
