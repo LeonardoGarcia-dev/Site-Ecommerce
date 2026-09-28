@@ -6,7 +6,7 @@ $conexao = conecta();
 
 $id_produto = $_GET["id"];
 
-$sql = "UPDATE produto SET excluido = TRUE WHERE id_produto = :id";
+$sql = "UPDATE produto SET excluido = TRUE, data_exclusao = CURRENT_TIMESTAMP WHERE id_produto = :id";
 $stmt = $conexao->prepare($sql);
 $stmt->bindParam(":id", $id_produto);
 $stmt->execute();

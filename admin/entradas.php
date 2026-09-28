@@ -4,10 +4,10 @@ protegeAdmin();
 
 $conexao = conecta();
 
-$sql = "SELECT entrada.id_entrada, entrada.quantidade, entrada.valor_unitario, entrada.data, produto.nome
+$sql = "SELECT entrada.id_entrada, entrada.quantidade, entrada.custo_unitario, entrada.obs, entrada.data_entrada, produto.nome
         FROM entrada
         INNER JOIN produto ON entrada.fk_produto = produto.id_produto
-        ORDER BY entrada.data DESC";
+        ORDER BY entrada.data_entrada DESC";
 
 $stmt = $conexao->prepare($sql);
 $stmt->execute();
@@ -44,6 +44,7 @@ $stmt->execute();
             </div>
 
             <div class="admin-menu">
+                <a href="painel.php">Painel</a>
                 <a href="produtos.php">Produtos</a>
                 <a href="usuarios.php">Usuários</a>
                 <a href="entradas.php" class="ativo">Entradas</a>
@@ -55,8 +56,9 @@ $stmt->execute();
                     <th>Id</th>
                     <th>Produto</th>
                     <th>Quantidade</th>
-                    <th>Valor unitário</th>
+                    <th>Custo unitário</th>
                     <th>Data</th>
+                    <th>Observação</th>
                     <th>Ações</th>
                 </tr>
 
@@ -66,15 +68,17 @@ $stmt->execute();
                     $id_entrada = $linha["id_entrada"];
                     $nome = htmlspecialchars($linha["nome"]);
                     $quantidade = $linha["quantidade"];
-                    $valor_unitario = number_format($linha["valor_unitario"], 2, ",", ".");
-                    $data = date("d/m/Y", strtotime($linha["data"]));
+                    $custo_unitario = number_format($linha["custo_unitario"], 2, ",", ".");
+                    $data = date("d/m/Y", strtotime($linha["data_entrada"]));
+                    $obs = htmlspecialchars($linha["obs"] ?? "");
 
                     echo "<tr>
                             <td>$id_entrada</td>
                             <td>$nome</td>
                             <td>$quantidade</td>
-                            <td>R$ $valor_unitario</td>
+                            <td>R$ $custo_unitario</td>
                             <td>$data</td>
+                            <td>$obs</td>
                             <td class='admin-acoes'>
                                 <a href='entrada_excluir.php?id=$id_entrada' class='excluir'
                                    onclick=\"return confirm('Excluir essa entrada?')\">Excluir</a>

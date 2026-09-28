@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST["email"];
     $senha = $_POST["senha"];
 
-    $sql = "SELECT id_usuario, nome, email, senha 
+    $sql = "SELECT id_usuario, nome, email, senha, admin
         FROM usuario
         WHERE LOWER(email) = LOWER(:email) 
         AND (excluido IS FALSE OR excluido IS NULL)";
@@ -24,14 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$resultado) {
         $mensagem = "Não encontrado";
     } else {
-        if ($senha == $resultado["senha"]) {
+        if (password_verify($senha, $resultado["senha"])) {
 
             setcookie("usuario", $usuario, time() + (86400 * 30));
 
-            $_SESSION["sessionConectado"] = TRUE;
-            $_SESSION["sessionLogin"] = $resultado["nome"];
+            $_SESSION["sessaoUsuario"] = $resultado["id_usuario"];
+            $_SESSION["sessaoNome"] = $resultado["nome"];
+            $_SESSION["sessaoAdmin"] = $resultado["admin"] ? true : false;
 
-            header("Location: usuariohome.php");
+            if ($_SESSION["sessaoAdmin"]) {
+                header("Location: ../admin/painel.php");
+            } else {
+                header("Location: perfil.php?id=" . $resultado["id_usuario"]);
+            }
             exit;
 
             } else {
