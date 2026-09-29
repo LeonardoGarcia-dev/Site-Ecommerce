@@ -1,0 +1,35 @@
+/* ==========================================================================
+   produtos.css
+   Página de listagem de produtos (por categoria: comum / personalizado).
+   Só monta o grid - o visual de cada card vem do product-card.php / home.css,
+   pra manter a mesma cara do resto do site.
+   ========================================================================== */
+
+.products {
+    padding: 32px 0 64px;
+    background: #ffffff;
+}
+
+.products .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.products h1 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+@media (max-width: 600px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}

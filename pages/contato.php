@@ -425,7 +425,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <!-- SIDEBAR -->
 
-    <script src="/../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
 
 </body>
 

@@ -36,6 +36,6 @@ if ($_POST) {
         echo "<br>Senhas estão diferentes";
     }
 
-    echo "<br><br><a href='/index.php'>Voltar</a>"; 
+    echo "<br><br><a href='../index.php'>Voltar</a>"; 
 } 
 ?>
