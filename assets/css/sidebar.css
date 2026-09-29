@@ -29,7 +29,7 @@ body.sidebar-open .sidebar-overlay {
     display: flex;
     flex-direction: column;
 
-    background-color: #fff;
+    background-color: #002040;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
 
     transform: translateX(100%);
@@ -48,7 +48,7 @@ body.sidebar-open .sidebar {
     min-height: 80px;
     padding: 0 20px;
 
-    background-color: #0E1B2B;
+    background-color: #002040;
 }
 
 .sidebar-logo {
@@ -87,7 +87,7 @@ body.sidebar-open .sidebar {
 .sidebar-nav a {
     padding: 14px 20px;
 
-    color: #222;
+    color: #fff;
     font-size: 16px;
     font-weight: 600;
 
@@ -97,8 +97,8 @@ body.sidebar-open .sidebar {
 }
 
 .sidebar-nav a:hover {
-    background-color: #f4f4f4;
-    border-right-color: #0E1B2B;
+    background-color: #002d5a;
+    border-right-color: #002d5a;
 }
 
 /* destaca o ícone de menu quando o sidebar está aberto */

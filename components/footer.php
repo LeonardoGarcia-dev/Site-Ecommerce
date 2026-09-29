@@ -22,6 +22,7 @@
         <div class="footer-coluna">
             <h3>Desenvolvedores</h3>
             <ul>
+                
                 <li>10 - Felipe Silva</li>
                 <li>11 - Felipe Placo</li>
                 <li>13 - Guilherme Cortes</li>
