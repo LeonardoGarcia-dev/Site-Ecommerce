@@ -11,6 +11,7 @@ $produtos = [
         'preco'          => 9.00,
         'estoque'        => 0,
         'imagens'        => [
+            //fotos
             '/../assets/images/oculosComum.png',
             '/../assets/images/oculosNormalCostas.png',
             '/../assets/images/oculosComumDireita.png',
@@ -67,6 +68,7 @@ $produto = $produtos[$idSelecionado];
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="../assets/css/produto.css">
+    
 </head>
 
 <body>
