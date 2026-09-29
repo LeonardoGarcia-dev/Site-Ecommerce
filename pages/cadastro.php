@@ -118,12 +118,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         content="E-commerce - Página inicial">
 
     <title>Criar conta</title>
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/home.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/footer.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/sidebar.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/cadastro.css">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/cadastro.css">
 </head>
 <body>
     
