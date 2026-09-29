@@ -1,7 +1,6 @@
 <?php
-// -----------------------------------------------------------------------
-// Dados da vitrine, direto aqui no arquivo (sem produtos-mock.php).
-// -----------------------------------------------------------------------
+// onde o cliente ve o grid dos oculos rpzd
+
 $produtos = [
 
     1 => [
@@ -13,6 +12,7 @@ $produtos = [
         'estoque'        => 0,
         'imagens'        => [
             '/../assets/images/oculosComum.png',
+         
         ],
         'descricao'      => '"Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
@@ -42,10 +42,10 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
     return $categoria === '' || $produto['categoria'] === $categoria;
 });
 
-$tituloPagina = 'Produtos';
+$tituloPagina = ' ';
 if ($categoria === 'comum') {
     $tituloPagina = 'Óculos Comum';
-} elseif ($categoria === 'personalizado') {
+} elseif ($categoria === 'personalizado') { 
     $tituloPagina = 'Óculos Personalizado';
 }
 ?>
