@@ -1,5 +1,6 @@
 <?php
 
+// Onde tem os dados dos produtos 
 $produtos = [
 
     1 => [
@@ -11,6 +12,12 @@ $produtos = [
         'estoque'        => 0,
         'imagens'        => [
             '/../assets/images/oculosComum.png',
+            '/../assets/images/oculosNormalCostas.png',
+            '/../assets/images/oculosComumDireita.png',
+            '/../assets/images/oculosComumEsquerda.png',
+            '/../assets/images/oculosComumModelo.png',
+            '/../assets/images/oculosComumModela.png',
+
         ],
         'descricao'      => '"Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
