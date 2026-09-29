@@ -236,6 +236,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once __DIR__ . "/../components/footer.php";
     ?>
 
-    <script src="/../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
 </body>
 </html>
