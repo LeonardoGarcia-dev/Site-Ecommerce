@@ -97,8 +97,8 @@ body.sidebar-open .sidebar {
 }
 
 .sidebar-nav a:hover {
-    background-color: #003973;
-    border-right-color: #0E1B2B;
+    background-color: #002d5a;
+    border-right-color: #002d5a;
 }
 
 /* destaca o ícone de menu quando o sidebar está aberto */
