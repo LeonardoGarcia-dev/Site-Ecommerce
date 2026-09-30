@@ -21,7 +21,7 @@ if ($_POST) {
     $token = $_GET['token'];       
     $email = $_SESSION[$token];
 
-    $senhaCripto = ValorSQL($conn, "SELECT senha FROM usuarios WHERE email='$email'");     
+    $senhaCripto = ValorSQL($conn, "SELECT senha FROM usuario WHERE email='$email'");     
     
     if ($senhaCripto <> $token) {
         echo "<br>Token invalido !!";
@@ -30,7 +30,7 @@ if ($_POST) {
 
     if ($senha1 == $senha2) {
         $novaSenhaCripto = password_hash($senha1, PASSWORD_DEFAULT);         
-        ExecutaSQL($conn, "UPDATE usuarios SET senha='$novaSenhaCripto' WHERE email='$email'");
+        ExecutaSQL($conn, "UPDATE usuario SET senha='$novaSenhaCripto' WHERE email='$email'");
         echo "<br>Senha alterada com sucesso !!";
     } else {
         echo "<br>Senhas estão diferentes";
