@@ -232,6 +232,7 @@ $erroCompra = $_GET['erroCompra'] ?? null;
     <meta name="description" content="E-commerce - Carrinho de compras">
 
     <title>Carrinho | Polaris Óculos</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/home.css">

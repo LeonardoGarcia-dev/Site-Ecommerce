@@ -17,7 +17,7 @@ function protegeAdmin()
     $autorizadoAdmin = (isset($_SESSION["sessaoAdmin"]) and $_SESSION["sessaoAdmin"] == true);
 
     if (!$autorizadoAdmin) {
-        header("Location: " . BASE_URL . "/index.php");
+        header("Location: " . BASE_URL . "/loja4n/index.php");
         exit;
     }
 }

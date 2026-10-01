@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"content="E-commerce - Página inicial">
     <title>Polaris Óculos</title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/home.css">

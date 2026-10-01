@@ -60,6 +60,7 @@ if ($categoria === 'comum') {
     <meta name="description" content="E-commerce - Página de produtos">
 
     <title><?php echo htmlspecialchars($tituloPagina); ?> | Polaris Óculos</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/home.css">

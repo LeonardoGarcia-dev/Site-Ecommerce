@@ -16,6 +16,7 @@ $omitirCancelados = isset($_POST["cancelados"]);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Monitor de vendas - Painel administrativo</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">

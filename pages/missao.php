@@ -15,6 +15,7 @@
         content="Conheça a missão, visão e os valores da Polaris.">
 
     <title>Nossa missão</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
 
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">

@@ -15,6 +15,7 @@
         content="Polaris Óculos - Conheça nossa história, proposta de valor, identidade e valores.">
 
     <title>Sobre nós</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/home.css">

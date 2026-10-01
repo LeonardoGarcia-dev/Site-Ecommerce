@@ -63,6 +63,7 @@ $produto = $produtos[$idSelecionado];
     <meta name="description" content="E-commerce - Página do produto">
 
     <title><?php echo htmlspecialchars($produto['nome']); ?> | Polaris Óculos</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/home.css">
