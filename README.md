@@ -130,10 +130,9 @@ Depois, basta abrir um **Pull Request** para a branch `main` e aguardar a revis�
 ## 🔮 Melhorias futuras
 
 - [ ] Sistema de busca e filtros de produtos
-- [ ] Integração com meios de pagamento
+- [ ] Integração com meios de reservas
 - [ ] Acompanhamento de pedidos pelo cliente
 - [ ] Layout totalmente responsivo para dispositivos móveis
-- [ ] Avaliações e comentários de produtos
 
 ---
 
@@ -144,7 +143,8 @@ Projeto desenvolvido em equipe:
 - **Leonardo Garcia** — [@LeonardoGarcia-dev](https://github.com/LeonardoGarcia-dev)
 - **Felipe Silva** — [@OFelipeSilvaTI](https://github.com/OFelipeSilvaTI)
 - **Felipe Placo** — [@felipeplaco](https://github.com/felipeplaco)
+- **Guilherme Cortes** - [@CortesGui07](https://github.com/CortesGui07)
 
 ---
 
-<p align="center">Feito com 💙 por estudantes apaixonados por desenvolvimento web.</p>
+<p align="center">Feito com 💙 por estudantes do Colégio Técnico Industrial “Prof. Isaac Portal Roldán” por desenvolvimento web.</p>
