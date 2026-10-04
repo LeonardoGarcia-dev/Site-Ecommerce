@@ -17,7 +17,6 @@ Aplicação web de loja virtual desenvolvida em **PHP**, com vitrine de produtos
 - [Estrutura de pastas](#-estrutura-de-pastas)
 - [Como executar](#-como-executar)
 - [Fluxo de trabalho da equipe](#-fluxo-de-trabalho-da-equipe)
-- [Melhorias futuras](#-melhorias-futuras)
 - [Autores](#-autores)
 
 ---
@@ -124,15 +123,6 @@ git push origin minha-branch
 ```
 
 Depois, basta abrir um **Pull Request** para a branch `main` e aguardar a revisão.
-
----
-
-## 🔮 Melhorias futuras
-
-- [ ] Sistema de busca e filtros de produtos
-- [ ] Integração com meios de reservas
-- [ ] Acompanhamento de pedidos pelo cliente
-- [ ] Layout totalmente responsivo para dispositivos móveis
 
 ---
 
