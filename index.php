@@ -30,9 +30,12 @@
         <section class="hero">
             <div class="carrossel-container">
                 <div class="carrossel-track">
+                    <!-- fotos carrosel-->
                     <img src="/../assets/images/oculos1.jpg" alt="Óculos 1" class="slide" />
                     <img src="/../assets/images/oculos2.jpg" alt="Óculos 2" class="slide" />
-                    <img src="/../assets/images/oculos3.jpg" alt="Óculos 3" class="slide" />
+                    <img src="/../assets/images/oculos1.jpg" alt="Óculos 1" class="slide" />
+  
+                   
                 </div>
             </div>
 

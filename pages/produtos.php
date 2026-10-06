@@ -13,6 +13,7 @@ $produtos = [
         'imagens'        => [
 
             '/../assets/images/oculosComum.png',
+         
         ],
         'descricao'      => '"Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
