@@ -148,6 +148,64 @@ body {
 }
 
 
+.senha-container input {
+
+    padding-right: 38px;
+}
+
+
+.icone-senha {
+
+    position: absolute;
+
+    right: 12px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 20px;
+
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #6b7280;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease;
+}
+
+
+.icone-senha:hover {
+
+    color: #0E1B2B;
+}
+
+
+.icone-senha:focus {
+
+    outline: none;
+
+    color: #0E1B2B;
+}
+
+
+.icone-senha svg {
+
+    display: block;
+
+    width: 20px;
+
+    height: 20px;
+}
+
 /* ESQUECI SENHA */
 
 .opcoes-login {
