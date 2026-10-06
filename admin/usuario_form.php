@@ -7,13 +7,13 @@ $conexao = conecta();
 $id_usuario = isset($_GET["id"]) ? $_GET["id"] : "";
 $nome = "";
 $email = "";
-$cpf = "";
+$telefone = "";
 $admin = false;
 $mensagem = "";
 
 if ($id_usuario != "") {
 
-    $sql = "SELECT id_usuario, nome, email, cpf, admin
+    $sql = "SELECT id_usuario, nome, email, telefone, admin
             FROM usuario
             WHERE id_usuario = :id";
 
@@ -26,7 +26,7 @@ if ($id_usuario != "") {
     if ($linha) {
         $nome = $linha["nome"];
         $email = $linha["email"];
-        $cpf = $linha["cpf"];
+        $telefone = $linha["telefone"];
         $admin = $linha["admin"];
     }
 }
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_usuario = $_POST["id_usuario"];
     $nome = trim($_POST["nome"]);
     $email = trim($_POST["email"]);
-    $cpf = trim($_POST["cpf"]);
+    $telefone = trim($_POST["telefone"]);
     $senha = $_POST["senha"];
     $admin = isset($_POST["admin"]) ? true : false;
 
@@ -44,8 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO usuario (nome, email, cpf, senha, admin)
-                VALUES (:nome, :email, :cpf, :senha, :admin)";
+        $sql = "INSERT INTO usuario (nome, email, telefone, senha, admin)
+                VALUES (:nome, :email, :telefone, :senha, :admin)";
 
         $stmt = $conexao->prepare($sql);
         $stmt->bindParam(":senha", $senhaHash);
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
             $sql = "UPDATE usuario
-                    SET nome = :nome, email = :email, cpf = :cpf, senha = :senha, admin = :admin
+                    SET nome = :nome, email = :email, telefone = :telefone, senha = :senha, admin = :admin
                     WHERE id_usuario = :id";
 
             $stmt = $conexao->prepare($sql);
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
             $sql = "UPDATE usuario
-                    SET nome = :nome, email = :email, cpf = :cpf, admin = :admin
+                    SET nome = :nome, email = :email, telefone = :telefone, admin = :admin
                     WHERE id_usuario = :id";
 
             $stmt = $conexao->prepare($sql);
@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->bindParam(":nome", $nome);
     $stmt->bindParam(":email", $email);
-    $stmt->bindParam(":cpf", $cpf);
+    $stmt->bindParam(":telefone", $telefone);
     $stmt->bindParam(":admin", $admin, PDO::PARAM_BOOL);
 
     if ($stmt->execute()) {
@@ -96,6 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Usuário - Painel administrativo</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
@@ -138,8 +139,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="campo">
-                    <label for="cpf">CPF</label>
-                    <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($cpf) ?>" required>
+                    <label for="telefone">Telefone</label>
+                    <input type="text" id="telefone" name="telefone" value="<?= htmlspecialchars($telefone) ?>">
                 </div>
 
                 <div class="campo">

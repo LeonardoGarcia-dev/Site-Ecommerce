@@ -15,15 +15,14 @@
         <div class="footer-coluna">
             <h3>Redes Sociais</h3>
             <ul>
-                <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
-                <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+                <li><a href="https://www.instagram.com/polaris_ecommerce/" target="_blank">Instagram</a></li>
             </ul>
         </div>
 
         <div class="footer-coluna">
             <h3>Desenvolvedores</h3>
             <ul>
-                <li>7 - Fábio Henrique</li>
+                
                 <li>10 - Felipe Silva</li>
                 <li>11 - Felipe Placo</li>
                 <li>13 - Guilherme Cortes</li>

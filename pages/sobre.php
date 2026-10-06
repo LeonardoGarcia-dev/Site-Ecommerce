@@ -15,11 +15,12 @@
         content="Polaris Óculos - Conheça nossa história, proposta de valor, identidade e valores.">
 
     <title>Sobre nós</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/home.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
-    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/sobre.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
 
 </head>
@@ -84,6 +85,6 @@
         require_once __DIR__ . "/../components/footer.php";
     ?>
 
-    <script src="/../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
 </body>
 </html>

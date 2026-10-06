@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/../config/base_url.php";
 session_start();
 
 include("../config/database.php");
@@ -117,12 +118,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         content="E-commerce - Página inicial">
 
     <title>Criar conta</title>
-    <link rel="stylesheet" href="../assets/css/global.css">
-    <link rel="stylesheet" href="../assets/css/header.css">
-    <link rel="stylesheet" href="../assets/css/home.css">
-    <link rel="stylesheet" href="../assets/css/footer.css">
-    <link rel="stylesheet" href="../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../assets/css/cadastro.css">
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/cadastro.css">
 </head>
 <body>
     
@@ -166,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <form
                 method="POST"
-                action="cadastro.php"
+                action="<?= BASE_URL ?>/pages/cadastro.php"
                 id="formCadastro">
 
 
@@ -283,7 +285,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     Já tem uma conta?
                 </span>
 
-                <a href="login.php">
+                <a href="<?= BASE_URL ?>/pages/login.php">
                     Entrar
                 </a>
 
@@ -293,7 +295,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- VOLTAR -->
 
             <a
-                href="../index.php"
+                href="<?= BASE_URL ?>/index.php"
                 class="voltar">
 
                 Voltar para o início

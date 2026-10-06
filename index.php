@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"content="E-commerce - Página inicial">
     <title>Polaris Óculos</title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/home.css">
@@ -29,9 +30,12 @@
         <section class="hero">
             <div class="carrossel-container">
                 <div class="carrossel-track">
+                    <!-- fotos carrosel-->
                     <img src="/../assets/images/oculos1.jpg" alt="Óculos 1" class="slide" />
                     <img src="/../assets/images/oculos2.jpg" alt="Óculos 2" class="slide" />
-                    <img src="/../assets/images/oculos3.jpg" alt="Óculos 3" class="slide" />
+                    <img src="/../assets/images/oculos1.jpg" alt="Óculos 1" class="slide" />
+  
+                   
                 </div>
             </div>
 

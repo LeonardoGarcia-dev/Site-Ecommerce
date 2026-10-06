@@ -13,7 +13,7 @@ $mensagem = "";
 
 if ($id_produto != "") {
 
-    $sql = "SELECT id_produto, nome, descricao, valor, quantidade
+    $sql = "SELECT id_produto, nome, descricao, valor_unitario, quantidade
             FROM produto
             WHERE id_produto = :id";
 
@@ -26,7 +26,7 @@ if ($id_produto != "") {
     if ($linha) {
         $nome = $linha["nome"];
         $descricao = $linha["descricao"];
-        $valor = $linha["valor"];
+        $valor = $linha["valor_unitario"];
         $quantidade = $linha["quantidade"];
     }
 }
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($id_produto == "") {
 
-        $sql = "INSERT INTO produto (nome, descricao, valor, quantidade)
+        $sql = "INSERT INTO produto (nome, descricao, valor_unitario, quantidade)
                 VALUES (:nome, :descricao, :valor, :quantidade)";
 
         $stmt = $conexao->prepare($sql);
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 
         $sql = "UPDATE produto
-                SET nome = :nome, descricao = :descricao, valor = :valor, quantidade = :quantidade
+                SET nome = :nome, descricao = :descricao, valor_unitario = :valor, quantidade = :quantidade
                 WHERE id_produto = :id";
 
         $stmt = $conexao->prepare($sql);
@@ -77,6 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Produto - Painel administrativo</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">

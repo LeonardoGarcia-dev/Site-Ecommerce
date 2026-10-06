@@ -11,13 +11,19 @@ $produtos = [
         'preco'          => 9.00,
         'estoque'        => 0,
         'imagens'        => [
+
             //fotos
+
+
             '/../assets/images/oculosComum.png',
-            '/../assets/images/oculosNormalCostas.png',
             '/../assets/images/oculosComumDireita.png',
             '/../assets/images/oculosComumEsquerda.png',
             '/../assets/images/oculosComumModelo.png',
             '/../assets/images/oculosComumModela.png',
+
+
+
+
 
         ],
         'descricao'      => '"Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
@@ -32,7 +38,16 @@ $produtos = [
         'preco'          => 12.00,
         'estoque'        => 0,
         'imagens'        => [
-            '/../assets/images/oculosPersonalizado.png',
+
+            '../assets/images/oculosPersonalizadoFrente.png',
+            '../assets/images/oculosPersonalizadoEsquerda.png',
+            '../assets/images/oculosPersonalizadoDireita.png',
+            '../assets/images/oculosPersonalizadoModelo.png',
+            '../assets/images/oculosPersonalizadoModela.png',
+
+
+
+
         ],
         'descricao'      => 'Sua personalidade em destaque: o óculos que transforma a sua mensagem no seu maior estilo.',
         'vendedor'       => 'Polaris Óculos',
@@ -62,6 +77,7 @@ $produto = $produtos[$idSelecionado];
     <meta name="description" content="E-commerce - Página do produto">
 
     <title><?php echo htmlspecialchars($produto['nome']); ?> | Polaris Óculos</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/home.css">
@@ -78,7 +94,7 @@ require_once __DIR__ . "/../components/sidebar.php";
 ?>
 
     <nav class="breadcrumb">
-        <a href="/../index.php">Início</a> ›
+        <a href="../index.php">Início</a> ›
         <a href="produtos.php?categoria=<?php echo urlencode($produto['categoria']); ?>">
             <?php echo htmlspecialchars(ucfirst($produto['categoria'])); ?>
         </a> ›
@@ -181,7 +197,7 @@ require_once __DIR__ . "/../components/sidebar.php";
 require_once __DIR__ . "/../components/footer.php";
 ?>
 
-    <script src="/../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
     <script>
         // Troca da imagem principal ao clicar numa miniatura
         document.querySelectorAll('.js-thumb').forEach(function (botao) {

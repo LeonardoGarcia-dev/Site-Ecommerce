@@ -19,15 +19,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $fk_produto = $_POST["fk_produto"];
     $quantidade = $_POST["quantidade"];
-    $valor_unitario = $_POST["valor_unitario"];
+    $custo_unitario = $_POST["custo_unitario"];
+    $obs = trim($_POST["obs"]);
 
-    $sql = "INSERT INTO entrada (fk_produto, quantidade, valor_unitario, data)
-            VALUES (:fk_produto, :quantidade, :valor_unitario, CURRENT_DATE)";
+    $sql = "INSERT INTO entrada (fk_produto, quantidade, custo_unitario, obs, data_entrada)
+            VALUES (:fk_produto, :quantidade, :custo_unitario, :obs, CURRENT_TIMESTAMP)";
 
     $stmt = $conexao->prepare($sql);
     $stmt->bindParam(":fk_produto", $fk_produto);
     $stmt->bindParam(":quantidade", $quantidade);
-    $stmt->bindParam(":valor_unitario", $valor_unitario);
+    $stmt->bindParam(":custo_unitario", $custo_unitario);
+    $stmt->bindParam(":obs", $obs);
 
     if ($stmt->execute()) {
 
@@ -56,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Entrada de estoque - Painel administrativo</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
@@ -102,8 +105,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <div class="campo">
-                    <label for="valor_unitario">Valor unitário</label>
-                    <input type="number" step="0.01" id="valor_unitario" name="valor_unitario" required>
+                    <label for="custo_unitario">Custo unitário</label>
+                    <input type="number" step="0.01" id="custo_unitario" name="custo_unitario" required>
+                </div>
+
+                <div class="campo">
+                    <label for="obs">Observação</label>
+                    <input type="text" id="obs" name="obs" maxlength="255">
                 </div>
 
                 <button type="submit">Salvar</button>

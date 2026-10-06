@@ -8,10 +8,10 @@ $mensagem = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $usuario = $_POST["email"];
+    $usuario = trim($_POST["email"]);
     $senha = $_POST["senha"];
 
-    $sql = "SELECT id_usuario, nome, email, senha 
+    $sql = "SELECT id_usuario, nome, email, senha, admin
         FROM usuario
         WHERE LOWER(email) = LOWER(:email) 
         AND (excluido IS FALSE OR excluido IS NULL)";
@@ -24,20 +24,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$resultado) {
         $mensagem = "Não encontrado";
     } else {
-        if ($senha == $resultado["senha"]) {
+        $hashArmazenado = (string) $resultado["senha"];
+
+        // Verificação normal: senha gravada com password_hash().
+        $senhaConfere = password_verify($senha, $hashArmazenado);
+
+        // Compatibilidade: se o registro foi criado/alterado fora do
+        // fluxo do sistema (ex: inserido direto no banco de dados) a
+        // senha pode ter ficado gravada em texto puro, sem hash. Nesse
+        // caso password_verify() nunca vai bater, mesmo com a senha certa.
+        // Aqui comparamos em texto puro como último recurso e, se bater,
+        // aproveitamos para já corrigir o registro gravando o hash correto,
+        // assim os próximos logins passam a usar password_verify() normalmente.
+        if (!$senhaConfere && $senha !== "" && hash_equals($hashArmazenado, $senha)) {
+            $senhaConfere = true;
+
+            $novoHash = password_hash($senha, PASSWORD_DEFAULT);
+            $atualiza = $conexao->prepare("UPDATE usuario SET senha = :senha WHERE id_usuario = :id");
+            $atualiza->bindParam(":senha", $novoHash);
+            $atualiza->bindParam(":id", $resultado["id_usuario"]);
+            $atualiza->execute();
+        }
+
+        if ($senhaConfere) {
 
             setcookie("usuario", $usuario, time() + (86400 * 30));
 
-            $_SESSION["sessionConectado"] = TRUE;
-            $_SESSION["sessionLogin"] = $resultado["nome"];
+            $_SESSION["sessaoUsuario"] = $resultado["id_usuario"];
+            $_SESSION["sessaoNome"] = $resultado["nome"];
+            $_SESSION["sessaoAdmin"] = $resultado["admin"] ? true : false;
 
-            header("Location: usuariohome.php");
+            if ($_SESSION["sessaoAdmin"]) {
+                header("Location: ../admin/painel.php");
+            } else {
+                header("Location: perfil.php?id=" . $resultado["id_usuario"]);
+            }
             exit;
 
-            } else {
+        } else {
             $mensagem = "Senha incorreta";
-            }
         }
+    }
 }
 ?>
 
@@ -54,6 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         content="E-commerce - Página inicial">
 
     <title>Login</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/home.css">
@@ -144,6 +172,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once __DIR__ . "/../components/footer.php";
     ?>
 
-    <script src="/../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
 </body>
 </html>

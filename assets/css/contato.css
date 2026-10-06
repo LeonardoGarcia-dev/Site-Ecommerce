@@ -1,0 +1,534 @@
+/* =========================================
+   CONTATO - POLARIS
+========================================= */
+
+.contato-page {
+    width: 100%;
+
+    background: #ffffff;
+
+    padding: 70px 20px 90px;
+
+    box-sizing: border-box;
+}
+
+
+.contato-container {
+    width: 100%;
+    max-width: 1080px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   INTRODUÇÃO
+========================================= */
+
+.contato-intro {
+    text-align: center;
+
+    max-width: 650px;
+
+    margin: 0 auto 45px;
+}
+
+
+.contato-subtitulo {
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    color: #1769e0;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.contato-intro h1 {
+    margin: 0 0 12px;
+
+    color: #082746;
+
+    font-size: 36px;
+    font-weight: 700;
+}
+
+
+.contato-intro p {
+    margin: 0;
+
+    color: #667789;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   CONTEÚDO
+========================================= */
+
+.contato-content {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.8fr);
+
+    gap: 25px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================
+   FORMULÁRIO
+========================================= */
+
+.contato-form {
+    padding: 32px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe6ed;
+
+    border-radius: 12px;
+
+    box-shadow: 0 5px 20px rgba(8, 39, 70, 0.06);
+
+    box-sizing: border-box;
+}
+
+
+.contato-form h2 {
+    margin: 0 0 5px;
+
+    color: #082746;
+
+    font-size: 21px;
+}
+
+
+.form-descricao {
+    margin: 0 0 25px;
+
+    color: #718096;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   CAMPOS
+========================================= */
+
+.campo-duplo {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 16px;
+}
+
+
+.campo {
+    margin-bottom: 18px;
+}
+
+
+.campo label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #183653;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.campo input,
+.campo select,
+.campo textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #ccd7e2;
+
+    border-radius: 7px;
+
+    color: #183653;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+
+.campo input,
+.campo select {
+    height: 43px;
+
+    padding: 0 13px;
+}
+
+
+.campo textarea {
+    min-height: 125px;
+
+    padding: 12px 13px;
+
+    resize: vertical;
+}
+
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+    color: #9aa8b5;
+}
+
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+
+    border-color: #1769e0;
+
+    box-shadow:
+        0 0 0 3px rgba(23, 105, 224, 0.09);
+}
+
+
+/* =========================================
+   BOTÃO
+========================================= */
+
+.btn-enviar {
+
+    width: 100%;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #0E1B2B;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.btn-enviar:hover {
+    background: #0f57bf;
+
+    transform: translateY(-1px);
+}
+
+
+.btn-enviar svg {
+    width: 16px;
+    height: 16px;
+}
+
+
+/* =========================================
+   INFORMAÇÕES
+========================================= */
+
+.contato-info {
+
+    padding: 32px;
+
+    background: #082746;
+
+    border-radius: 12px;
+
+    box-sizing: border-box;
+
+    color: #ffffff;
+}
+
+
+.info-intro {
+    margin-bottom: 30px;
+}
+
+
+.info-logo {
+
+    width: 52px;
+    height: 52px;
+
+    margin-bottom: 17px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+}
+
+
+.info-logo img {
+    width: 46px;
+    height: 46px;
+
+    object-fit: contain;
+}
+
+
+.info-intro h2 {
+
+    margin: 0 0 7px;
+
+    color: #ffffff;
+
+    font-size: 22px;
+}
+
+
+.info-intro p {
+
+    margin: 0;
+
+    color: #b9c9d9;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   INFORMAÇÕES INDIVIDUAIS
+========================================= */
+
+.info-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 14px;
+
+    padding: 14px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    box-sizing: border-box;
+
+    transition: 0.2s ease;
+}
+
+
+.info-item:hover {
+
+    background: rgba(255, 255, 255, 0.1);
+
+    transform: translateX(2px);
+}
+
+
+.info-icon {
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #1769e0;
+
+    border-radius: 7px;
+}
+
+
+.info-icon svg {
+
+    width: 18px;
+    height: 18px;
+}
+
+
+.info-item span {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #8fa9c0;
+
+    font-size: 11px;
+}
+
+
+.info-item strong {
+
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.info-item small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: #9eb2c5;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   FRASE
+========================================= */
+
+.info-frase {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+
+.info-frase svg {
+
+    width: 15px;
+    height: 15px;
+
+    color: #4d91ff;
+}
+
+
+.info-frase p {
+
+    margin: 0;
+
+    color: #9eb2c5;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .contato-page {
+        padding: 50px 18px 70px;
+    }
+
+
+    .contato-content {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .contato-info {
+
+        order: -1;
+
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .contato-intro h1 {
+
+        font-size: 29px;
+
+    }
+
+
+    .contato-intro p {
+
+        font-size: 13px;
+
+    }
+
+
+    .contato-form,
+    .contato-info {
+
+        padding: 23px;
+
+    }
+
+
+    .campo-duplo {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+    }
+
+}

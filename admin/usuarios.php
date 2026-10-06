@@ -12,7 +12,7 @@ if (isset($_GET["pesquisa"]) && $_GET["pesquisa"] != "") {
             FROM usuario
             WHERE (nome ILIKE :pesquisa OR email ILIKE :pesquisa)
             AND (excluido IS FALSE OR excluido IS NULL)
-            ORDER BY nome";
+            ORDER BY id_usuario ASC";
 
     $stmt = $conexao->prepare($sql);
     $stmt->bindParam(":pesquisa", $filtro);
@@ -22,7 +22,7 @@ if (isset($_GET["pesquisa"]) && $_GET["pesquisa"] != "") {
     $sql = "SELECT id_usuario, nome, email, admin
             FROM usuario
             WHERE (excluido IS FALSE OR excluido IS NULL)
-            ORDER BY nome";
+            ORDER BY id_usuario ASC";
 
     $stmt = $conexao->prepare($sql);
 }
@@ -37,6 +37,7 @@ $stmt->execute();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Usuários - Painel administrativo</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
@@ -61,6 +62,7 @@ $stmt->execute();
             </div>
 
             <div class="admin-menu">
+                <a href="painel.php">Painel</a>
                 <a href="produtos.php">Produtos</a>
                 <a href="usuarios.php" class="ativo">Usuários</a>
                 <a href="entradas.php">Entradas</a>

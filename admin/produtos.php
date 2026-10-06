@@ -8,7 +8,7 @@ if (isset($_GET["pesquisa"]) && $_GET["pesquisa"] != "") {
 
     $filtro = "%" . $_GET["pesquisa"] . "%";
 
-    $sql = "SELECT id_produto, nome, valor, quantidade
+    $sql = "SELECT id_produto, nome, valor_unitario, quantidade
             FROM produto
             WHERE nome ILIKE :pesquisa
             AND (excluido IS FALSE OR excluido IS NULL)
@@ -19,7 +19,7 @@ if (isset($_GET["pesquisa"]) && $_GET["pesquisa"] != "") {
 
 } else {
 
-    $sql = "SELECT id_produto, nome, valor, quantidade
+    $sql = "SELECT id_produto, nome, valor_unitario, quantidade
             FROM produto
             WHERE (excluido IS FALSE OR excluido IS NULL)
             ORDER BY nome";
@@ -37,6 +37,7 @@ $stmt->execute();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Produtos - Painel administrativo</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
@@ -61,6 +62,7 @@ $stmt->execute();
             </div>
 
             <div class="admin-menu">
+                <a href="painel.php">Painel</a>
                 <a href="produtos.php" class="ativo">Produtos</a>
                 <a href="usuarios.php">Usuários</a>
                 <a href="entradas.php">Entradas</a>
@@ -93,7 +95,7 @@ $stmt->execute();
 
                     $id_produto = $linha["id_produto"];
                     $nome = htmlspecialchars($linha["nome"]);
-                    $valor = number_format($linha["valor"], 2, ",", ".");
+                    $valor = number_format($linha["valor_unitario"], 2, ",", ".");
                     $quantidade = $linha["quantidade"];
 
                     echo "<tr>

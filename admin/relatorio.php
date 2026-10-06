@@ -16,6 +16,7 @@ $omitirCancelados = isset($_POST["cancelados"]);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Monitor de vendas - Painel administrativo</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
@@ -39,6 +40,7 @@ $omitirCancelados = isset($_POST["cancelados"]);
             </div>
 
             <div class="admin-menu">
+                <a href="painel.php">Painel</a>
                 <a href="produtos.php">Produtos</a>
                 <a href="usuarios.php">Usuários</a>
                 <a href="entradas.php">Entradas</a>
@@ -73,7 +75,7 @@ $omitirCancelados = isset($_POST["cancelados"]);
             $sql = "SELECT compra.id_compra, compra.status, compra.data, usuario.nome
                     FROM compra
                     LEFT JOIN usuario ON compra.fk_usuario = usuario.id_usuario
-                    WHERE compra.data BETWEEN :datai AND :dataf "
+                    WHERE compra.data::date BETWEEN :datai AND :dataf "
                     . ($omitirCancelados ? " AND compra.status != 'cancelado' " : "")
                     . " ORDER BY compra.data DESC";
 
@@ -107,7 +109,7 @@ $omitirCancelados = isset($_POST["cancelados"]);
                     $id_compra = $linha["id_compra"];
                     $status = htmlspecialchars($linha["status"]);
                     $data = date("d/m/Y", strtotime($linha["data"]));
-                    $nome = htmlspecialchars($linha["nome"]);
+                    $nome = htmlspecialchars($linha["nome"] ?? "");
 
                     echo "<tr>
                             <td>$id_compra</td>
@@ -116,11 +118,11 @@ $omitirCancelados = isset($_POST["cancelados"]);
                             <td colspan='5'>$nome</td>
                           </tr>";
 
-                    $sqlItens = "SELECT produto.nome, compra_produto.quantidade, compra_produto.valor_unitario,
-                                        compra_produto.quantidade * compra_produto.valor_unitario AS subtotal
-                                 FROM compra_produto
-                                 INNER JOIN produto ON compra_produto.fk_produto = produto.id_produto
-                                 WHERE compra_produto.fk_compra = :id_compra
+                    $sqlItens = "SELECT produto.nome, campo_produto.quantidade, campo_produto.valor_unitario,
+                                        campo_produto.quantidade * campo_produto.valor_unitario AS subtotal
+                                 FROM campo_produto
+                                 INNER JOIN produto ON campo_produto.fk_produto = produto.id_produto
+                                 WHERE campo_produto.fk_compra = :id_compra
                                  ORDER BY produto.nome";
 
                     $selectItens = $conexao->prepare($sqlItens);
