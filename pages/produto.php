@@ -12,12 +12,17 @@ $produtos = [
         'estoque'        => 0,
         'imagens'        => [
 
+            //fotos
+
+
             '/../assets/images/oculosComum.png',
-            '/../assets/images/oculosNormalCostas.png',
             '/../assets/images/oculosComumDireita.png',
             '/../assets/images/oculosComumEsquerda.png',
             '/../assets/images/oculosComumModelo.png',
             '/../assets/images/oculosComumModela.png',
+
+
+
 
 
         ],
@@ -33,7 +38,16 @@ $produtos = [
         'preco'          => 12.00,
         'estoque'        => 0,
         'imagens'        => [
-            '../assets/images/oculosPersonalizado.png',
+
+            '../assets/images/oculosPersonalizadoFrente.png',
+            '../assets/images/oculosPersonalizadoEsquerda.png',
+            '../assets/images/oculosPersonalizadoDireita.png',
+            '../assets/images/oculosPersonalizadoModelo.png',
+            '../assets/images/oculosPersonalizadoModela.png',
+
+
+
+
         ],
         'descricao'      => 'Sua personalidade em destaque: o óculos que transforma a sua mensagem no seu maior estilo.',
         'vendedor'       => 'Polaris Óculos',
@@ -70,6 +84,7 @@ $produto = $produtos[$idSelecionado];
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <link rel="stylesheet" href="../assets/css/produto.css">
+    
 </head>
 
 <body>
