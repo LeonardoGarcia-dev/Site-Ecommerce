@@ -135,13 +135,19 @@ if ($operacao === 'fechar') {
         $conexao->beginTransaction();
 
         // 1) COMPRA: um registro por fechamento de carrinho.
+        // O enum status_compra aceita: cancelado, carrinho, reservado, entregue.
+        // O status NÃO é informado aqui: a coluna tem DEFAULT 'carrinho'.
         $insereCompra = $conexao->prepare(
-            "INSERT INTO compra (data, fk_usuario, status)
-             VALUES (NOW(), :fk_usuario, 'reservado')
+            "INSERT INTO compra (data, fk_usuario, acrescimo_total, sessao)
+             VALUES (NOW(), :fk_usuario, :acrescimo_total, :sessao)
              RETURNING id_compra"
         );
         $fkUsuario = $_SESSION['sessaoUsuario'];
-        $insereCompra->bindParam(":fk_usuario", $fkUsuario);
+        $acrescimo = 0;
+        $idSessao  = session_id();
+        $insereCompra->bindParam(":fk_usuario", $fkUsuario, PDO::PARAM_INT);
+        $insereCompra->bindParam(":acrescimo_total", $acrescimo);
+        $insereCompra->bindParam(":sessao", $idSessao);
         $insereCompra->execute();
         $idCompra = $insereCompra->fetchColumn();
 

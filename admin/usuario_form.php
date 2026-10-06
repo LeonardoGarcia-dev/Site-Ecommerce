@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="admin-topo">
                 <h1><?= $id_usuario == "" ? "Adicionar usuário" : "Editar usuário" ?></h1>
-                <a href="usuarios.php" class="admin-novo">Voltar</a>
+                <a href="usuario.php" class="admin-novo">Voltar</a>
             </div>
 
             <?php if ($mensagem != "") { ?>

@@ -35,10 +35,10 @@ if (!$linha) {
     exit;
 }
 
-$nome = $linha["nome"];
-$email = $linha["email"];
-$telefone = $linha["telefone"];
-$admin = $linha["admin"];
+$nome = $linha["nome"] ?? "";
+$email = $linha["email"] ?? "";
+$telefone = $linha["telefone"] ?? "";
+$admin = $linha["admin"] ?? false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -201,19 +201,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
 
-                <div class="campo">
-                    <label for="senha">Nova senha (deixe em branco para manter a atual)</label>
-
-                    <div class="input-container">
-                        <input
-                            type="password"
-                            id="senha"
-                            name="senha"
-                            placeholder="Digite uma nova senha"
-                        >
-                    </div>
-                </div>
-
                 <button type="submit">
                     Salvar alterações
                 </button>
@@ -224,6 +211,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <a href="../admin/painel.php">Ir para o painel administrativo</a>
                 </div>
             <?php } ?>
+
+            <div class="refazersenha">
+                <a href="refazersenha.php">Esqueci minha senha</a>
+            </div>
 
             <a href="logout.php" class="voltar">
                 Sair da conta

@@ -18,3 +18,27 @@
 
     text-transform: uppercase;
 }
+
+.refazersenha {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.refazersenha a {
+    color: #1769E0;
+
+    font-size: 13px;
+
+    text-decoration: none;
+
+    transition: color 0.2s;
+}
+
+.refazersenha a:hover {
+    color: #0E1B2B;
+
+    text-decoration: underline;
+}
