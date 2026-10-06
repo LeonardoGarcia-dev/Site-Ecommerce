@@ -14,7 +14,9 @@ $linkUsuario = $estaLogado
 
 <header>
     <div class="logo">
-        <a href="/index.php"><img src="/assets/images/logo.png" alt="logo"> </a>
+        <a href="/index.php">
+            <img src="/assets/images/logo.png" alt="logo">
+        </a>
     </div>
 
     <nav>
@@ -29,17 +31,26 @@ $linkUsuario = $estaLogado
     <div class="icons">
 
         <a href="/pages/carrinho.php">
-            <img src="/assets/images/carrinho.png" alt="Carrinho">
+            <i data-lucide="shopping-cart"></i>
         </a>
 
         <a href="<?= $linkUsuario ?>">
-            <img src="/assets/images/user.png" alt="Usuário">
+            <?php if ($estaLogado): ?>
+                <i data-lucide="user-round-check"></i>
+            <?php else: ?>
+                <i data-lucide="user-round"></i>
+            <?php endif; ?>
         </a>
-
-
 
         <a href="#" class="menu-icon">
-            <img src="/assets/images/menu.png" alt="Menu">
+            <i data-lucide="text-align-justify"></i>
         </a>
+
     </div>
 </header>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+    lucide.createIcons();
+</script>

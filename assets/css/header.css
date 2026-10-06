@@ -6,15 +6,13 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 0 5%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
-
 
 .logo img {
     width: 70px;
     height: auto;
 }
-
 
 nav ul {
     display: flex;
@@ -34,22 +32,30 @@ nav a {
     gap: 20px;
 }
 
-.icons img {
+.icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+}
+
+.icons svg {
     width: 25px;
     height: 25px;
-    object-fit: contain;
+    stroke: white;
+    stroke-width: 2;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.icons img:hover {
+.icons a:hover svg {
     transform: scale(1.1);
 }
 
 .menu-icon {
-    display: block;
+    display: flex;
 }
-
 
 
 @media (max-width: 768px) {
@@ -74,7 +80,7 @@ nav a {
         gap: 12px;
     }
 
-    .icons img {
+    .icons svg {
         width: 22px;
         height: 22px;
     }
@@ -91,7 +97,7 @@ nav a {
         width: 45px;
     }
 
-    .icons img {
+    .icons svg {
         width: 20px;
         height: 20px;
     }
