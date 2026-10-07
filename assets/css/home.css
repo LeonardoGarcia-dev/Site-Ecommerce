@@ -73,7 +73,7 @@
     max-width: 650px;
     margin-bottom: 20px;
 
-    color: #05006b;
+    color: #010108;
     font-size: clamp(40px, 5vw, 64px);
     font-weight: 700;
     line-height: 1.05;
@@ -118,13 +118,13 @@
 
 /* botão "Personalizar o meu" (azul da marca) */
 .btn-outline {
-    border: 2px solid #002040;
+    border: 2px solid #002245;
     background-color: #002040;
     color: #fff;
 }
 
 .btn-outline:hover {
-    background-color: #002040;
+    background-color: #016dd8;
     color: #fff;
 }
 
@@ -157,7 +157,7 @@
 
     background: radial-gradient(
         circle 80px at var(--x, 200%) var(--y, 200%),
-        rgba(5, 63, 253, 0.7),
+        rgba(0, 0, 0, 0.7),
         transparent 90%
     );
 

@@ -71,18 +71,7 @@
             </div>
         </section>
 
-        <!-- ================= PERSONALIZAÇÃO ================= -->
-        <section class="custom">
-            <div class="container custom-grid">
-
-                <div class="custom-img reveal">
-                    <img src="assets/images/home/personalize.webp" alt="Rapaz usando óculos com a frase 'Sua Frase' nas lentes" loading="lazy" />
-                </div>
-
-                
-            </div>
-        </section>
-
+        
         <!-- ================= VÍDEO ================= -->
         <section class="video">
             <div class="container video-grid">
