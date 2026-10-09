@@ -11,9 +11,11 @@ $produtos = [
         'preco'          => 9.00,
         'estoque'        => 0,
         'imagens'        => [
-
-            '/../assets/images/oculosComum.png',
-         
+            '../assets/images/oculosComum.png',
+            '../assets/images/oculosComumDireita.png',
+            '../assets/images/oculosComumEsquerda.png',
+            '../assets/images/oculosComumModelo.png',
+            '../assets/images/oculosComumModela.png',
         ],
         'descricao'      => '"Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
@@ -27,7 +29,11 @@ $produtos = [
         'preco'          => 12.00,
         'estoque'        => 0,
         'imagens'        => [
-            '../assets/images/oculosPersonalizado.png',
+            '../assets/images/oculosPersonalizadoFrente.png',
+            '../assets/images/oculosPersonalizadoEsquerda.png',
+            '../assets/images/oculosPersonalizadoDireita.png',
+            '../assets/images/oculosPersonalizadoModelo.png',
+            '../assets/images/oculosPersonalizadoModela.png',
         ],
         'descricao'      => 'Sua personalidade em destaque: o óculos que transforma a sua mensagem no seu maior estilo.',
         'vendedor'       => 'Polaris Óculos',
@@ -43,7 +49,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
     return $categoria === '' || $produto['categoria'] === $categoria;
 });
 
-$tituloPagina = ' ';
+$tituloPagina = ".";
 if ($categoria === 'comum') {
     $tituloPagina = 'Óculos Comum';
 } elseif ($categoria === 'personalizado') { 
@@ -99,7 +105,8 @@ require_once __DIR__ . "/../components/sidebar.php";
                             // product-card.php espera as chaves id / image / name / price
                             $product = [
                                 'id'    => $produtoItem['id'],
-                                'image' => $produtoItem['imagens'][0],
+                                'image'  => $produtoItem['imagens'][0],
+                                'images' => $produtoItem['imagens'],
                                 'name'  => $produtoItem['nome'],
                                 'price' => $produtoItem['preco'],
                             ];
@@ -119,5 +126,6 @@ require_once __DIR__ . "/../components/footer.php";
 ?>
 
     <script src="../assets/js/sidebar.js"></script>
+    <script src="../assets/js/produtos.js"></script>
 </body>
 </html>

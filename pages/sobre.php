@@ -25,13 +25,16 @@
 
 </head>
 
-<body>  
+<body class="sobre-page">
     <?php
         require_once __DIR__ . "/../components/header.php";
         require_once __DIR__ . "/../components/sidebar.php";
     ?>
 
     <main>
+        <!-- Luz suave que segue o mouse (atrás dos cards) -->
+        <div class="cursor-glow" aria-hidden="true"></div>
+
         <!-- Título Principal -->
         <section class="sobre-intro">
             <h1>Sobre a Polaris</h1>
@@ -86,5 +89,6 @@
     ?>
 
     <script src="../assets/js/sidebar.js"></script>
+    <script src="../assets/js/sobre.js"></script>
 </body>
 </html>

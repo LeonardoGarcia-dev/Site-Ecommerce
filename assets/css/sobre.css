@@ -78,9 +78,10 @@
     margin-bottom: 30px;
     padding: 35px;
 
-    background: #00264c;
+    background: rgba(0, 38, 76, 0.78);
+    overflow: hidden;
 
-    border: 1px solid #002040;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 18px;
 
     box-shadow: 0 8px 25px rgba(8, 39, 70, 0.06);
@@ -259,5 +260,71 @@
 
     .sobre-identidade {
         margin-bottom: 50px;
+    }
+}
+
+/* ==========================================================================
+   LUZ QUE SEGUE O MOUSE (detalhe minimalista)
+   - .cursor-glow: brilho suave no fundo, atrás dos cards (os cards são
+     levemente translúcidos, então a luz "transparece" por eles)
+   - ::after dos cards: um reflexo bem sutil na posição do mouse
+   ========================================================================== */
+
+.cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 520px;
+    height: 520px;
+    margin: -260px 0 0 -260px;
+    border-radius: 50%;
+    pointer-events: none;
+
+    background: radial-gradient(
+        circle,
+        rgba(44, 142, 232, 0.20) 0%,
+        rgba(44, 142, 232, 0.07) 40%,
+        rgba(44, 142, 232, 0) 70%
+    );
+
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    will-change: transform;
+}
+
+.cursor-glow.is-visible {
+    opacity: 1;
+}
+
+.sobre-historia::after,
+.sobre-diferencial::after,
+.sobre-identidade::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+
+    background: radial-gradient(
+        260px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(255, 255, 255, 0.07),
+        transparent 70%
+    );
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sobre-historia:hover::after,
+.sobre-diferencial:hover::after,
+.sobre-identidade:hover::after {
+    opacity: 1;
+}
+
+/* sem mouse (celular) ou com movimento reduzido: sem luz */
+@media (hover: none), (prefers-reduced-motion: reduce) {
+    .cursor-glow {
+        display: none;
     }
 }

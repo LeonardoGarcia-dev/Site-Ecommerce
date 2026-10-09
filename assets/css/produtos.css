@@ -1,35 +1,191 @@
 /* ==========================================================================
    produtos.css
    Página de listagem de produtos (por categoria: comum / personalizado).
-   Só monta o grid - o visual de cada card vem do product-card.php / home.css,
-   pra manter a mesma cara do resto do site.
+   Cards centralizados + miniaturas das outras fotos aparecendo no hover.
    ========================================================================== */
 
+/* Breadcrumb (o fundo da página é azul-marinho) */
+.breadcrumb {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 18px 24px 0;
+    font-size: 0.8125rem;
+    color: #aebbd0;
+}
+
+.breadcrumb a {
+    color: #aebbd0;
+}
+
+.breadcrumb a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.breadcrumb span[aria-current] {
+    color: #ffffff;
+}
+
+/* Seção */
 .products {
-    padding: 32px 0 64px;
-    background: #ffffff;
+    padding: 40px 0 88px;
 }
 
 .products .container {
+    width: 100%;
     max-width: 1180px;
     margin: 0 auto;
     padding: 0 24px;
 }
 
 .products h1 {
-    font-size: 1.5rem;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
 }
 
+/* Grid centralizado: poucos produtos ficam no meio, não colados à esquerda */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 380px));
+    justify-content: center;
+    gap: 32px;
+}
+
+/* Card */
+.product-card {
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product-card:hover,
+.product-card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+}
+
+.product-card-link {
+    display: block;
+    color: inherit;
+}
+
+/* Imagem principal */
+.product-image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.product-image > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.2s ease, transform 0.4s ease;
+}
+
+.product-card:hover .product-image > img {
+    transform: scale(1.03);
+}
+
+/* Miniaturas (estilo Nike): sobem de baixo no hover */
+.product-thumbs {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 10px 12px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 40%, rgba(255, 255, 255, 0));
+
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.product-card:hover .product-thumbs,
+.product-card:focus-within .product-thumbs {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-thumb {
+    display: block;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    overflow: hidden;
+    background: #f2f3f5;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+.product-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-thumb:hover,
+.product-thumb:focus-visible {
+    border-color: #6b7685;
+}
+
+.product-thumb.is-active {
+    border-color: #0b0b0b;
+}
+
+/* Textos */
+.product-info {
+    padding: 18px 20px 22px;
+}
+
+.product-info h3 {
+    color: #0b0b0b;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.product-price {
+    margin-top: 4px;
+    color: #002040;
+    font-weight: 600;
+}
+
+/* Celular (sem hover): miniaturas sempre visíveis */
+@media (hover: none) {
+    .product-thumbs {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 @media (max-width: 600px) {
+    .products h1 {
+        font-size: 1.6rem;
+        margin-bottom: 28px;
+    }
+
     .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
+        grid-template-columns: minmax(0, 380px);
+        gap: 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .product-card,
+    .product-thumbs,
+    .product-image > img {
+        transition: none;
     }
 }
