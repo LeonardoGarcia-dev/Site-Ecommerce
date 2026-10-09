@@ -4,28 +4,6 @@
    Cards centralizados + miniaturas das outras fotos aparecendo no hover.
    ========================================================================== */
 
-/* Breadcrumb (o fundo da página é azul-marinho) */
-.breadcrumb {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 18px 24px 0;
-    font-size: 0.8125rem;
-    color: #aebbd0;
-}
-
-.breadcrumb a {
-    color: #aebbd0;
-}
-
-.breadcrumb a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-.breadcrumb span[aria-current] {
-    color: #ffffff;
-}
-
 /* Seção */
 .products {
     padding: 40px 0 88px;

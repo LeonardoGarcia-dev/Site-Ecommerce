@@ -49,7 +49,7 @@ $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria
     return $categoria === '' || $produto['categoria'] === $categoria;
 });
 
-$tituloPagina = ".";
+$tituloPagina = 'Todos os óculos';
 if ($categoria === 'comum') {
     $tituloPagina = 'Óculos Comum';
 } elseif ($categoria === 'personalizado') { 
@@ -81,11 +81,6 @@ if ($categoria === 'comum') {
 require_once __DIR__ . "/../components/header.php";
 require_once __DIR__ . "/../components/sidebar.php";
 ?>
-
-    <nav class="breadcrumb">
-        <a href="../index.php">Início</a> ›
-        <span aria-current="true"><?php echo htmlspecialchars($tituloPagina); ?></span>
-    </nav>
 
     <main>
         <section class="products">
