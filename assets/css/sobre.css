@@ -1,19 +1,9 @@
-/* =========================================
-   POLARIS - SOBRE NÓS
-   ========================================= */
+/* POLARIS - SOBRE NÓS */
 
-.sobre-page {
-    background: #ffffff;
-    color: #183653;
-    min-height: calc(100vh - 80px);
-}
-
-/* =========================================
-   CONTAINER GERAL
-   ========================================= */
-
-.sobre-page main {
-    width: 100%;
+/* CONTAINER GERAL */
+   
+   .sobre-page main {
+       width: 100%;
 }
 
 .sobre-intro,
@@ -24,10 +14,7 @@
     margin: 0 auto;
 }
 
-/* =========================================
-   INTRO
-   ========================================= */
-
+/* INTRO */
 .sobre-intro {
     text-align: center;
     padding: 80px 25px 55px;
@@ -50,7 +37,7 @@
 .sobre-intro h1 {
     margin: 0 0 15px;
 
-    color: #082746;
+    color: #ffffff;
 
     font-size: 42px;
     font-weight: 800;
@@ -61,15 +48,13 @@
     max-width: 650px;
     margin: 0 auto;
 
-    color: #718096;
+    color: #e2e2e2;
 
     font-size: 17px;
     line-height: 1.7;
 }
 
-/* =========================================
-   LINHA DECORATIVA
-   ========================================= */
+/* LINHA DECORATIVA */
 
 .sobre-intro::after {
     content: "";
@@ -85,9 +70,7 @@
     border-radius: 10px;
 }
 
-/* =========================================
-   SEÇÕES
-   ========================================= */
+/* SEÇÕES */
 
 .sobre-historia,
 .sobre-diferencial,
@@ -95,9 +78,10 @@
     margin-bottom: 30px;
     padding: 35px;
 
-    background: #ffffff;
+    background: rgba(0, 38, 76, 0.78);
+    overflow: hidden;
 
-    border: 1px solid #e7edf3;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 18px;
 
     box-shadow: 0 8px 25px rgba(8, 39, 70, 0.06);
@@ -117,16 +101,14 @@
     box-shadow: 0 14px 35px rgba(8, 39, 70, 0.09);
 }
 
-/* =========================================
-   TÍTULOS DAS SEÇÕES
-   ========================================= */
+/*TÍTULOS DAS SEÇÕES */
 
 .sobre-historia h2,
 .sobre-diferencial h2,
 .sobre-identidade h2 {
     margin: 0 0 15px;
 
-    color: #082746;
+    color: #ffffff;
 
     font-size: 25px;
     font-weight: 750;
@@ -151,16 +133,14 @@
     border-radius: 10px;
 }
 
-/* =========================================
-   TEXTOS
-   ========================================= */
+/* TEXTOS */
 
 .sobre-historia p,
 .sobre-diferencial p,
 .sobre-identidade p {
     margin: 0;
 
-    color: #52677b;
+    color: #fdfdfd;
 
     font-size: 16px;
     line-height: 1.8;
@@ -178,29 +158,23 @@
     display: none;
 }
 
-/* =========================================
-   DESTAQUE NA HISTÓRIA
-   ========================================= */
+/*  DESTAQUE NA HISTÓRIA */
 
 .sobre-historia {
     border-left: 5px solid #1677d2;
 }
 
-/* =========================================
-   PROPOSTA DE VALOR
-   ========================================= */
+/* PROPOSTA DE VALOR */
 
 .sobre-diferencial {
     background: linear-gradient(
         135deg,
-        #ffffff 0%,
-        #f7fbff 100%
+      
+        #00264c 100%
     );
 }
 
-/* =========================================
-   IDENTIDADE VISUAL
-   ========================================= */
+/*IDENTIDADE VISUAL */
 
 .sobre-identidade {
     margin-bottom: 80px;
@@ -224,9 +198,7 @@
     color: #d7e3ee;
 }
 
-/* =========================================
-   RESPONSIVIDADE
-   ========================================= */
+/* RESPONSIVIDADE */
 
 @media (max-width: 900px) {
 
@@ -246,9 +218,7 @@
     }
 }
 
-/* =========================================
-   CELULAR
-   ========================================= */
+/*  CELULAR */
 
 @media (max-width: 600px) {
 
@@ -290,5 +260,79 @@
 
     .sobre-identidade {
         margin-bottom: 50px;
+    }
+}
+
+/* ==========================================================================
+   LUZ QUE SEGUE O MOUSE (detalhe minimalista)
+   - .cursor-glow: brilho bem difuso no fundo, atrás dos cards. O JS faz a luz
+     "deslizar" até o mouse (com atraso suave), e o gradiente tem vários
+     degraus de transparência para não ter borda nem aspecto uniforme.
+   - ::after dos cards: reflexo muito sutil na posição do mouse.
+   ========================================================================== */
+
+.cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 760px;
+    height: 760px;
+    margin: -380px 0 0 -380px;
+    border-radius: 50%;
+    pointer-events: none;
+
+    /* queda gradual, parecida com uma gaussiana */
+    background: radial-gradient(
+        circle closest-side,
+        rgba(60, 150, 235, 0.16) 0%,
+        rgba(60, 150, 235, 0.12) 15%,
+        rgba(60, 150, 235, 0.075) 32%,
+        rgba(60, 150, 235, 0.035) 50%,
+        rgba(60, 150, 235, 0.012) 70%,
+        rgba(60, 150, 235, 0) 100%
+    );
+    filter: blur(24px);
+
+    opacity: 0;
+    transition: opacity 0.9s ease;
+    will-change: transform, opacity;
+}
+
+.cursor-glow.is-visible {
+    opacity: 1;
+}
+
+.sobre-historia::after,
+.sobre-diferencial::after,
+.sobre-identidade::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+
+    background: radial-gradient(
+        circle 340px at var(--mx, 50%) var(--my, 50%),
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.03) 30%,
+        rgba(255, 255, 255, 0.012) 55%,
+        transparent 100%
+    );
+
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+.sobre-historia:hover::after,
+.sobre-diferencial:hover::after,
+.sobre-identidade:hover::after {
+    opacity: 1;
+}
+
+/* sem mouse (celular) ou com movimento reduzido: sem luz */
+@media (hover: none), (prefers-reduced-motion: reduce) {
+    .cursor-glow {
+        display: none;
     }
 }
