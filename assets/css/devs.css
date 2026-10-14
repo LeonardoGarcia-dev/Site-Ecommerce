@@ -1,0 +1,286 @@
+/* POLARIS - DESENVOLVEDORES */
+
+/* CONTAINER GERAL */
+
+.devs-page main {
+    width: 100%;
+}
+
+.devs-intro,
+.devs-lista,
+.devs-rodape {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* INTRO */
+
+.devs-intro {
+    position: relative;
+
+    text-align: center;
+    padding: 80px 25px 55px;
+}
+
+.devs-intro::before {
+    content: "EQUIPE";
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    color: #1677d2;
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.devs-intro h1 {
+    margin: 0 0 15px;
+
+    color: #082746;
+
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.devs-intro p {
+    max-width: 650px;
+    margin: 0 auto;
+
+    color: #718096;
+
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+/* LINHA DECORATIVA */
+
+.devs-intro::after {
+    content: "";
+    display: block;
+
+    width: 55px;
+    height: 4px;
+
+    margin: 28px auto 0;
+
+    background: #1677d2;
+    border-radius: 10px;
+}
+
+/* LISTA DE CARDS */
+
+.devs-lista {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+
+    padding: 0 25px;
+    margin-bottom: 30px;
+}
+
+.dev-card {
+    position: relative;
+    overflow: hidden;
+    
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    flex: 1 1 230px; 
+    max-width: 250px;
+
+    padding: 35px 25px;
+
+    text-align: center;
+
+    background: rgba(0, 38, 76, 0.78);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 5px solid #1677d2;
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(8, 39, 70, 0.06);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.dev-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 14px 35px rgba(8, 39, 70, 0.09);
+}
+
+/* AVATAR (INICIAIS) */
+
+.dev-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 84px;
+    height: 84px;
+
+    margin-bottom: 18px;
+
+    background: #082746;
+    color: #ffffff;
+
+    border: 3px solid #1677d2;
+    border-radius: 50%;
+
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+/* TEXTOS */
+
+.dev-card h2 {
+    margin: 0 0 6px;
+
+    color: #ffffff;
+
+    font-size: 21px;
+    font-weight: 750;
+}
+
+.dev-funcao {
+    margin: 0 0 22px;
+
+    color: #d7e3ee;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* LINK DO GITHUB */
+
+.dev-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin-top: auto;
+    padding: 0 20px;
+
+    min-height: 40px;
+
+    background: #1677d2;
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.dev-link:hover {
+    background: #0259c3;
+
+    transform: translateY(-2px);
+}
+
+.dev-link svg {
+    width: 18px;
+    height: 18px;
+
+    fill: currentColor;
+}
+
+/* RODAPÉ DA SEÇÃO */
+
+.devs-rodape {
+    margin-bottom: 80px;
+    padding: 30px 35px;
+
+    text-align: center;
+
+    background: #082746;
+
+    border-radius: 18px;
+
+    box-shadow: 0 12px 35px rgba(8, 39, 70, 0.15);
+}
+
+.devs-rodape p {
+    margin: 0;
+
+    color: #d7e3ee;
+
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 900px) {
+
+    .devs-intro {
+        padding: 65px 25px 45px;
+    }
+
+    .devs-intro h1 {
+        font-size: 36px;
+    }
+
+    .devs-rodape {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+/* CELULAR */
+
+@media (max-width: 600px) {
+
+    .devs-intro {
+        padding: 50px 20px 40px;
+    }
+
+    .devs-intro h1 {
+        font-size: 31px;
+    }
+
+    .devs-intro p {
+        font-size: 15px;
+    }
+
+    .devs-lista {
+        grid-template-columns: 1fr;
+
+        padding: 0 15px;
+    }
+
+    .dev-card {
+        padding: 28px 22px;
+
+        border-radius: 15px;
+    }
+
+    .devs-rodape {
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 50px;
+
+        padding: 25px 22px;
+
+        border-radius: 15px;
+    }
+}
