@@ -134,6 +134,7 @@ Projeto desenvolvido em equipe:
 - **Felipe Silva** — [@OFelipeSilvaTI](https://github.com/OFelipeSilvaTI)
 - **Felipe Placo** — [@felipeplaco](https://github.com/felipeplaco)
 - **Guilherme Cortes** - [@CortesGui07](https://github.com/CortesGui07)
+- **João Vitor** - [@joaovitor19cti](https://github.com/joaovitor19cti)
 
 ---
 
