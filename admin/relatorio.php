@@ -111,11 +111,12 @@ $omitirCancelados = isset($_POST["cancelados"]);
                     $data = date("d/m/Y", strtotime($linha["data"]));
                     $nome = htmlspecialchars($linha["nome"] ?? "");
 
-                    $sqlItens = "SELECT produto.nome, campo_produto.quantidade, campo_produto.valor_unitario,
-                                        campo_produto.quantidade * campo_produto.valor_unitario AS subtotal
-                                 FROM campo_produto
-                                 INNER JOIN produto ON campo_produto.fk_produto = produto.id_produto
-                                 WHERE campo_produto.fk_compra = :id_compra
+                    // Aqui ocorreu a mudança de campo_produto para compra_produto
+                    $sqlItens = "SELECT produto.nome, compra_produto.quantidade, compra_produto.valor_unitario,
+                                        compra_produto.quantidade * compra_produto.valor_unitario AS subtotal
+                                 FROM compra_produto
+                                 INNER JOIN produto ON compra_produto.fk_produto = produto.id_produto
+                                 WHERE compra_produto.fk_compra = :id_compra
                                  ORDER BY produto.nome";
 
                     $selectItens = $conexao->prepare($sqlItens);

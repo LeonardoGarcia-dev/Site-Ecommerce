@@ -315,6 +315,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 </div>
 
+                <!-- TELEFONE -->
+                  <div class="campo">
+
+                    <label for="telefone">
+                        Telefone
+                    </label>
+
+                    <div class="input-container">
+
+                        <input
+                            type="telefone"
+                            id="telefone"
+                            name="telefone"
+                            placeholder="Digite seu Telefone"
+                            value="<?php echo htmlspecialchars($telefone); ?>"
+                            required
+                        >
+
+                    </div>
+
+                </div>
 
                 <!-- SENHA -->
 

@@ -1,58 +1,43 @@
 <?php
+require_once __DIR__ . "/../config/util.php";
+$conexao = conecta();
 
-// Onde tem os dados dos produtos 
+// Onde tem os dados dos produtos (Mantendo imagens e descrições do array)
 $produtos = [
-
     1 => [
         'id'             => 1,
         'nome'           => 'Óculos Comum',
         'categoria'      => 'comum',
         'personalizavel' => false,
-        'preco'          => 9.00,
-        'estoque'        => 0,
+        'preco'          => 9.00, // Será sobrescrito pelo BD
+        'estoque'        => 0,    // Será sobrescrito pelo BD
         'imagens'        => [
-
-            //fotos
-
-
             '/../assets/images/oculosComum.png',
             '/../assets/images/oculosComumDireita.png',
             '/../assets/images/oculosComumEsquerda.png',
             '/../assets/images/oculosComumModelo.png',
             '/../assets/images/oculosComumModela.png',
-
-
-
-
-
         ],
-        'descricao'      => '"Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
+        'descricao'      => 'Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
     ],
-
     2 => [
         'id'             => 2,
         'nome'           => 'Óculos Personalizado',
         'categoria'      => 'personalizado',
         'personalizavel' => true,
-        'preco'          => 12.00,
-        'estoque'        => 0,
+        'preco'          => 12.00, // Será sobrescrito pelo BD
+        'estoque'        => 0,     // Será sobrescrito pelo BD
         'imagens'        => [
-
             '../assets/images/oculosPersonalizadoFrente.png',
             '../assets/images/oculosPersonalizadoEsquerda.png',
             '../assets/images/oculosPersonalizadoDireita.png',
             '../assets/images/oculosPersonalizadoModelo.png',
             '../assets/images/oculosPersonalizadoModela.png',
-
-
-
-
         ],
         'descricao'      => 'Sua personalidade em destaque: o óculos que transforma a sua mensagem no seu maior estilo.',
         'vendedor'       => 'Polaris Óculos',
     ],
-
 ];
 
 // Qual produto mostrar (vem do link do product-card: /pages/produto.php?id=2)
@@ -65,6 +50,22 @@ if (!isset($produtos[$idSelecionado])) {
 }
 
 $produto = $produtos[$idSelecionado];
+
+// --- PUXANDO PREÇO E QUANTIDADE DO BANCO DE DADOS ---
+$sqlProduto = "SELECT valor_unitario, quantidade FROM produto WHERE id_produto = :id";
+$selectProduto = $conexao->prepare($sqlProduto);
+$selectProduto->bindParam(":id", $idSelecionado, PDO::PARAM_INT);
+$selectProduto->execute();
+
+if ($selectProduto->rowCount() > 0) {
+    $dadosBanco = $selectProduto->fetch(PDO::FETCH_ASSOC);
+    $produto['preco']   = $dadosBanco['valor_unitario'];
+    $produto['estoque'] = $dadosBanco['quantidade'];
+} else {
+    // Caso não encontre no banco, zera o estoque por segurança
+    $produto['estoque'] = 0;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +120,7 @@ require_once __DIR__ . "/../components/sidebar.php";
                                     >
                                         <img
                                             src="<?php echo htmlspecialchars($imagem); ?>"
-                                            alt="<?php echo htmlspecialchars($produto['nome']); ?> - foto <?php echo $indice + 1; ?>"
+                                            alt="<?php echo htmlspecialchars($produto['nome']); ?> foto <?php echo $indice + 1; ?>"
                                         >
                                     </button>
                                 <?php endforeach; ?>
@@ -157,27 +158,33 @@ require_once __DIR__ . "/../components/sidebar.php";
                             <input type="hidden" name="operacao" value="incluir">
                             <input type="hidden" name="id_produto" value="<?php echo $produto['id']; ?>">
 
-                           
-
                             <div class="buybox-quantity">
                                 <span>Quantidade: <?php echo (int) $produto['estoque']; ?> disponíveis</span>
-                                <span class="qty-stepper">
-                                    <button type="button" class="js-qty-minus" aria-label="Diminuir quantidade">−</button>
-                                    <input
-                                        type="text"
-                                        class="js-qty-input"
-                                        name="quantidade"
-                                        value="1"
-                                        inputmode="numeric"
-                                        aria-label="Quantidade"
-                                    >
-                                    <button type="button" class="js-qty-plus" aria-label="Aumentar quantidade">+</button>
-                                </span>
+                                
+                                <?php if ($produto['estoque'] > 0): ?>
+                                    <span class="qty-stepper">
+                                        <button type="button" class="js-qty-minus" aria-label="Diminuir quantidade">−</button>
+                                        <input
+                                            type="text"
+                                            class="js-qty-input"
+                                            name="quantidade"
+                                            value="1"
+                                            inputmode="numeric"
+                                            aria-label="Quantidade"
+                                        >
+                                        <button type="button" class="js-qty-plus" aria-label="Aumentar quantidade">+</button>
+                                    </span>
+                                <?php else: ?>
+                                    <span style="color: #d9534f; font-weight: bold; display: block; margin-top: 5px;">Produto Fora de Estoque</span>
+                                <?php endif; ?>
                             </div>
 
                             <div class="buybox-actions">
-                                <button type="submit" class="btn btn-primary">Comprar agora</button>
-                                <button type="submit" class="btn btn-secondary">Adicionar ao carrinho</button>
+                                <?php if ($produto['estoque'] > 0): ?>
+                                    <button type="submit" class="btn btn-primary">Reservar Agora</button>
+                                <?php else: ?>
+                                    <button type="button" class="btn btn-primary" disabled style="background-color: #ccc; border-color: #ccc; cursor: not-allowed; color: #666;">Indisponível</button>
+                                <?php endif; ?>
                             </div>
                         </form>
 
@@ -210,16 +217,25 @@ require_once __DIR__ . "/../components/footer.php";
             });
         });
 
-        // Contador de quantidade
+        // Contador de quantidade com limite de estoque
         var qtyInput = document.querySelector('.js-qty-input');
-        document.querySelector('.js-qty-minus').addEventListener('click', function () {
-            var valor = Math.max(1, parseInt(qtyInput.value || '1', 10) - 1);
-            qtyInput.value = valor;
-        });
-        document.querySelector('.js-qty-plus').addEventListener('click', function () {
-            var valor = parseInt(qtyInput.value || '1', 10) + 1;
-            qtyInput.value = valor;
-        });
+        var maxEstoque = <?php echo (int) $produto['estoque']; ?>;
+
+        if (qtyInput) {
+            document.querySelector('.js-qty-minus').addEventListener('click', function () {
+                var valor = Math.max(1, parseInt(qtyInput.value || '1', 10) - 1);
+                qtyInput.value = valor;
+            });
+            
+            document.querySelector('.js-qty-plus').addEventListener('click', function () {
+                var valor = parseInt(qtyInput.value || '1', 10) + 1;
+                // Impede que o usuário selecione mais do que tem no estoque
+                if (valor > maxEstoque) {
+                    valor = maxEstoque;
+                }
+                qtyInput.value = valor;
+            });
+        }
     </script>
 </body>
 </html>
