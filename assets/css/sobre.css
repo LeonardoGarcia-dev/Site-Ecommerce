@@ -70,6 +70,11 @@
     border-radius: 10px;
 }
 
+body {
+    background-color: #002f5e;
+}
+
+
 /* SEÇÕES */
 
 .sobre-historia,

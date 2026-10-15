@@ -140,6 +140,10 @@
     font-weight: 600;
 }
 
+body {
+    background-color: #002f5e;
+}
+
 /* Celular (sem hover): miniaturas sempre visíveis */
 @media (hover: none) {
     .product-thumbs {

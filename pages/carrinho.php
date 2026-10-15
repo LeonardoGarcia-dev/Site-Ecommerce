@@ -266,13 +266,13 @@ require_once __DIR__ . "/../components/sidebar.php";
 
                 <?php if ($carrinhoFoiFechado): ?>
                     <div class="cart-message">
-                        Compra fechada com sucesso!
+                        Reserva finalizada com sucesso! Nos encontre na (sala) dentro de 30 minutos
                     </div>
                 <?php endif; ?>
 
                 <?php if ($erroCompra === 'login'): ?>
                     <div class="cart-message cart-message-erro">
-                        Você precisa <a href="login.php">entrar na sua conta</a> para finalizar a compra.
+                        Você precisa <u><a href="login.php">estar logado</a></u> para finalizar a reserva.
                     </div>
                 <?php elseif ($erroCompra): ?>
                     <div class="cart-message cart-message-erro">
@@ -362,7 +362,7 @@ require_once __DIR__ . "/../components/sidebar.php";
                             </div>
 
                             <a href="carrinho.php?operacao=fechar" class="btn btn-primary cart-checkout">
-                                Finalizar compra
+                                Finalizar Reserva
                             </a>
                             <a href="produtos.php" class="cart-continue">Continuar comprando</a>
                         </aside>

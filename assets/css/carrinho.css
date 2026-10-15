@@ -161,6 +161,12 @@
     font-size: 0.9375rem;
 }
 
+.cart-message-erro{
+    background: #f5ebc2;
+    border: 1px solid black;
+    color: black;
+}
+
 .cart-item-subtotal {
     font-weight: 600;
     color: var(--pl-ink, #1a1a1a);
