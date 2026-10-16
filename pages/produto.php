@@ -12,11 +12,11 @@ $produtos = [
         'preco'          => 9.00, // Será sobrescrito pelo BD
         'estoque'        => 0,    // Será sobrescrito pelo BD
         'imagens'        => [
-            '/../assets/images/oculosComum.png',
-            '/../assets/images/oculosComumDireita.png',
-            '/../assets/images/oculosComumEsquerda.png',
-            '/../assets/images/oculosComumModelo.png',
-            '/../assets/images/oculosComumModela.png',
+            '../assets/images/oculosComum.png',
+            '../assets/images/oculosComumDireita.png',
+            '../assets/images/oculosComumEsquerda.png',
+            '../assets/images/oculosComumModelo.png',
+            '../assets/images/oculosComumModela.png',
         ],
         'descricao'      => 'Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',

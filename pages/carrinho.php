@@ -9,7 +9,7 @@
 //   como no algoritmo original); 'fechar' fecha o carrinho
 //
 // Ao fechar o carrinho, grava a compra no banco: um registro em COMPRA
-// e um registro em CAMPO_PRODUTO para cada item, exatamente como o
+// e um registro em COMPRA_PRODUTO para cada item, exatamente como o
 // admin/relatorio.php (Monitor de vendas) espera para conseguir listar.
 // -----------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ $conexao = conecta();
 // -----------------------------------------------------------------------
 
 // -----------------------------------------------------------------------
-// Dados da vitrine, direto aqui no arquivo (sem produtos-mock.php).
+// Dados da vitrine
 // -----------------------------------------------------------------------
 $produtos = [
 
@@ -32,7 +32,7 @@ $produtos = [
         'imagens'        => [
             '../assets/images/oculosComum.png',
         ],
-        'descricao'      => '"Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
+        'descricao'      => 'Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
     ],
 
@@ -52,6 +52,24 @@ $produtos = [
 
 ];
 
+// --- PUXANDO PREÇOS E ESTOQUE DO BANCO DE DADOS ---
+$sqlProdutos = "SELECT id_produto, valor_unitario, quantidade FROM produto";
+$stmt = $conexao->query($sqlProdutos);
+$dadosBanco = [];
+
+while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $dadosBanco[$linha['id_produto']] = $linha;
+}
+
+foreach ($produtos as $key => $prod) {
+    $idProd = $prod['id'];
+    if (isset($dadosBanco[$idProd])) {
+        $produtos[$key]['preco'] = $dadosBanco[$idProd]['valor_unitario'];
+        $produtos[$key]['estoque'] = $dadosBanco[$idProd]['quantidade'];
+    }
+}
+// -----------------------------------------------------------------------
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -67,7 +85,7 @@ if (!isset($_SESSION['carrinho'])) {
 $operacao  = $_REQUEST['operacao']  ?? null;
 $idProduto = isset($_REQUEST['id_produto']) ? (int) $_REQUEST['id_produto'] : null;
 
-$mensagem = null;
+$erroEstoque = false; // Flag para controlar aviso de estoque excedido
 
 if ($operacao && $idProduto && isset($produtos[$idProduto])) {
 
@@ -75,20 +93,36 @@ if ($operacao && $idProduto && isset($produtos[$idProduto])) {
 
         $quantidade     = isset($_REQUEST['quantidade']) ? max(1, (int) $_REQUEST['quantidade']) : 1;
         $personalizacao = isset($_REQUEST['personalizacao']) ? trim($_REQUEST['personalizacao']) : '';
-
-        if (isset($_SESSION['carrinho'][$idProduto])) {
-            // já existe no carrinho - soma a quantidade
-            $_SESSION['carrinho'][$idProduto]['qtdade'] += $quantidade;
+        
+        $estoqueDisponivel = $produtos[$idProduto]['estoque'];
+        $qtdAtualNoCarrinho = isset($_SESSION['carrinho'][$idProduto]) ? $_SESSION['carrinho'][$idProduto]['qtdade'] : 0;
+        
+        // Verifica se a quantidade solicitada vai estourar o estoque
+        if (($qtdAtualNoCarrinho + $quantidade) > $estoqueDisponivel) {
+            $erroEstoque = true;
+            
+            // Se o carrinho estava vazio, mas o usuário pediu mais que o estoque de uma vez, 
+            // limitamos para o estoque máximo disponível.
+            if ($qtdAtualNoCarrinho === 0 && $estoqueDisponivel > 0) {
+                $_SESSION['carrinho'][$idProduto] = [
+                    'qtdade'         => $estoqueDisponivel,
+                    'personalizacao' => $personalizacao,
+                ];
+            }
         } else {
-            // vetor vazio -> recebe a primeira quantidade
-            $_SESSION['carrinho'][$idProduto] = [
-                'qtdade'         => $quantidade,
-                'personalizacao' => '',
-            ];
-        }
+            // Segue o fluxo normal de adicionar se estiver dentro do limite
+            if (isset($_SESSION['carrinho'][$idProduto])) {
+                $_SESSION['carrinho'][$idProduto]['qtdade'] += $quantidade;
+            } else {
+                $_SESSION['carrinho'][$idProduto] = [
+                    'qtdade'         => $quantidade,
+                    'personalizacao' => '',
+                ];
+            }
 
-        if ($personalizacao !== '') {
-            $_SESSION['carrinho'][$idProduto]['personalizacao'] = $personalizacao;
+            if ($personalizacao !== '') {
+                $_SESSION['carrinho'][$idProduto]['personalizacao'] = $personalizacao;
+            }
         }
 
     } elseif ($operacao === 'excluir') {
@@ -113,8 +147,7 @@ if ($operacao && $idProduto && isset($produtos[$idProduto])) {
 
 if ($operacao === 'fechar') {
 
-    // Precisa estar logado para finalizar a compra (é o que gera o
-    // fk_usuario da tabela COMPRA, usado inclusive no relatório do admin).
+    // Precisa estar logado para finalizar a compra
     if (!isset($_SESSION['sessaoUsuario']) || $_SESSION['sessaoUsuario'] == '') {
         header("Location: carrinho.php?erroCompra=login");
         exit;
@@ -126,20 +159,14 @@ if ($operacao === 'fechar') {
     }
 
     try {
-        // Por padrão o PDO não lança exceção em erro de SQL (fica em modo
-        // silencioso); aqui ligamos as exceções só para esta conexão, pra
-        // conseguir dar rollback caso algum item do carrinho não exista
-        // (ou não exista mais) na tabela PRODUTO.
         $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         $conexao->beginTransaction();
 
         // 1) COMPRA: um registro por fechamento de carrinho.
-        // O enum status_compra aceita: cancelado, carrinho, reservado, entregue.
-        // O status NÃO é informado aqui: a coluna tem DEFAULT 'carrinho'.
+        // ADICIONADO: status = 'reservado' forçando a mudança no banco de dados
         $insereCompra = $conexao->prepare(
-            "INSERT INTO compra (data, fk_usuario, acrescimo_total, sessao)
-             VALUES (NOW(), :fk_usuario, :acrescimo_total, :sessao)
+            "INSERT INTO compra (data, fk_usuario, acrescimo_total, sessao, status)
+             VALUES (NOW(), :fk_usuario, :acrescimo_total, :sessao, 'reservado')
              RETURNING id_compra"
         );
         $fkUsuario = $_SESSION['sessaoUsuario'];
@@ -151,11 +178,9 @@ if ($operacao === 'fechar') {
         $insereCompra->execute();
         $idCompra = $insereCompra->fetchColumn();
 
-        // 2) CAMPO_PRODUTO: um registro por item do carrinho, ligado à
-        // compra recém-criada. Preço gravado é o valor no momento da
-        // compra (não muda se o produto mudar de preço depois).
+        // 2) COMPRA_PRODUTO: um registro por item do carrinho
         $insereItem = $conexao->prepare(
-            "INSERT INTO campo_produto (fk_compra, fk_produto, quantidade, valor_unitario)
+            "INSERT INTO compra_produto (fk_compra, fk_produto, quantidade, valor_unitario)
              VALUES (:fk_compra, :fk_produto, :quantidade, :valor_unitario)"
         );
 
@@ -169,6 +194,15 @@ if ($operacao === 'fechar') {
             $insereItem->bindValue(":quantidade", $dadosItem['qtdade'], PDO::PARAM_INT);
             $insereItem->bindValue(":valor_unitario", $produtos[$idItem]['preco']);
             $insereItem->execute();
+            
+            // Opcional: Subtrair a quantidade reservada do estoque na tabela 'produto'
+            // Se você quiser que o estoque diminua na hora da reserva, descomente as linhas abaixo:
+            /*
+            $atualizaEstoque = $conexao->prepare("UPDATE produto SET quantidade = quantidade - :qtd WHERE id_produto = :id");
+            $atualizaEstoque->bindValue(":qtd", $dadosItem['qtdade'], PDO::PARAM_INT);
+            $atualizaEstoque->bindValue(":id", $idItem, PDO::PARAM_INT);
+            $atualizaEstoque->execute();
+            */
         }
 
         $conexao->commit();
@@ -183,9 +217,6 @@ if ($operacao === 'fechar') {
             $conexao->rollBack();
         }
 
-        // Não foi possível gravar a compra (ex: produto do carrinho não
-        // está cadastrado na tabela PRODUTO do banco). O carrinho é
-        // mantido para o cliente poder tentar de novo.
         header("Location: carrinho.php?erroCompra=1");
         exit;
     }
@@ -194,7 +225,11 @@ if ($operacao === 'fechar') {
 // Depois de tratar uma operação vinda por link (GET), redireciona pra
 // limpar o ?operacao=...&id_produto=... da URL
 if ($operacao && $_SERVER['REQUEST_METHOD'] === 'GET') {
-    header("Location: carrinho.php");
+    if ($erroEstoque) {
+        header("Location: carrinho.php?erroEstoque=1");
+    } else {
+        header("Location: carrinho.php");
+    }
     exit;
 }
 
@@ -218,6 +253,7 @@ foreach ($_SESSION['carrinho'] as $idItem => $dadosItem) {
         'nome'           => $produtoItem['nome'],
         'imagem'         => $produtoItem['imagens'][0],
         'preco'          => $produtoItem['preco'],
+        'estoque'        => $produtoItem['estoque'], // Passando o estoque
         'qtdade'         => $dadosItem['qtdade'],
         'personalizacao' => $dadosItem['personalizacao'],
         'subtotal'       => $subtotal,
@@ -226,6 +262,7 @@ foreach ($_SESSION['carrinho'] as $idItem => $dadosItem) {
 
 $carrinhoFoiFechado = isset($_GET['fechado']);
 $erroCompra = $_GET['erroCompra'] ?? null;
+$avisoEstoque = isset($_GET['erroEstoque']) || $erroEstoque; // Detecta erro de limite de estoque
 ?>
 
 <!DOCTYPE html>
@@ -270,13 +307,19 @@ require_once __DIR__ . "/../components/sidebar.php";
                     </div>
                 <?php endif; ?>
 
+                <?php if ($avisoEstoque): ?>
+                    <div class="cart-message cart-message-erro">
+                        <strong>Atenção:</strong> A quantidade solicitada ultrapassa o limite disponível em estoque para um ou mais produtos.
+                    </div>
+                <?php endif; ?>
+
                 <?php if ($erroCompra === 'login'): ?>
                     <div class="cart-message cart-message-erro">
                         Você precisa <u><a href="login.php">estar logado</a></u> para finalizar a reserva.
                     </div>
                 <?php elseif ($erroCompra): ?>
                     <div class="cart-message cart-message-erro">
-                        Não foi possível finalizar a compra. Tente novamente em instantes.
+                        Não foi possível finalizar a reserva. Verifique os itens e tente novamente em instantes.
                     </div>
                 <?php endif; ?>
 
@@ -328,12 +371,22 @@ require_once __DIR__ . "/../components/sidebar.php";
                                                 href="carrinho.php?operacao=excluir&id_produto=<?php echo $item['id']; ?>"
                                                 aria-label="Diminuir quantidade"
                                             >−</a>
+                                            
                                             <span class="qty-value"><?php echo (int) $item['qtdade']; ?></span>
-                                            <a
-                                                href="carrinho.php?operacao=incluir&id_produto=<?php echo $item['id']; ?>"
-                                                aria-label="Aumentar quantidade"
-                                            >+</a>
+                                            
+                                            <?php if ($item['qtdade'] < $item['estoque']): ?>
+                                                <a
+                                                    href="carrinho.php?operacao=incluir&id_produto=<?php echo $item['id']; ?>"
+                                                    aria-label="Aumentar quantidade"
+                                                >+</a>
+                                            <?php else: ?>
+                                                <!-- Desabilita visualmente o botão + se atingir o estoque máximo -->
+                                                <span style="opacity: 0.3; cursor: not-allowed; padding: 0 10px;" title="Estoque máximo atingido">+</span>
+                                            <?php endif; ?>
                                         </span>
+                                        <?php if ($item['qtdade'] >= $item['estoque']): ?>
+                                            <small style="display: block; color: #cc0000; font-size: 11px; margin-top: 4px;">Máximo disponível</small>
+                                        <?php endif; ?>
                                     </div>
 
                                     <div class="cart-item-subtotal">
