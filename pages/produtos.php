@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . "/../config/util.php";
 $conexao = conecta();
-
 // Onde o cliente ve o grid dos oculos rpzd
 $produtos = [
     1 => [
@@ -21,7 +20,6 @@ $produtos = [
         'descricao'      => 'Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
     ],
-
     2 => [
         'id'             => 2,
         'nome'           => 'Óculos Personalizado',
@@ -40,17 +38,14 @@ $produtos = [
         'vendedor'       => 'Polaris Óculos',
     ],
 ];
-
 // --- PUXANDO PREÇOS E QUANTIDADES DO BANCO DE DADOS ---
 // Buscamos todos os produtos do banco para cruzar com o nosso array
 $sqlProdutos = "SELECT id_produto, valor_unitario, quantidade FROM produto";
 $stmt = $conexao->query($sqlProdutos);
 $dadosBanco = [];
-
 while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $dadosBanco[$linha['id_produto']] = $linha;
 }
-
 // Atualizando o array estático com as informações reais do banco
 foreach ($produtos as $key => $prod) {
     $idProd = $prod['id'];
@@ -61,15 +56,12 @@ foreach ($produtos as $key => $prod) {
         $produtos[$key]['estoque'] = 0; // Se não achar no banco, zera por segurança
     }
 }
-
 // Categoria vinda da URL (?categoria=comum ou ?categoria=personalizado).
 // Sem parâmetro = mostra todos os produtos.
 $categoria = isset($_GET['categoria']) ? strtolower(trim($_GET['categoria'])) : '';
-
 $produtosFiltrados = array_filter($produtos, function ($produto) use ($categoria) {
     return $categoria === '' || $produto['categoria'] === $categoria;
 });
-
 $tituloPagina = 'Todos os óculos';
 if ($categoria === 'comum') {
     $tituloPagina = 'Óculos Comum';
@@ -77,16 +69,12 @@ if ($categoria === 'comum') {
     $tituloPagina = 'Óculos Personalizado';
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <meta name="description" content="E-commerce - Página de produtos">
-
     <title><?php echo htmlspecialchars($tituloPagina); ?> | Polaris Óculos</title>
     <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
@@ -149,25 +137,18 @@ if ($categoria === 'comum') {
         }
     </style>
 </head>
-
 <body>
 <?php
 require_once __DIR__ . "/../components/header.php";
 require_once __DIR__ . "/../components/sidebar.php";
 ?>
-
     <main>
         <section class="products">
             <div class="container">
-
                 <h1><?php echo htmlspecialchars($tituloPagina); ?></h1>
-
                 <?php if (empty($produtosFiltrados)): ?>
-
                     <p>Nenhum produto encontrado nessa categoria.</p>
-
                 <?php else: ?>
-
                     <div class="product-grid">
                         <?php foreach ($produtosFiltrados as $produtoItem): ?>
                             
@@ -186,7 +167,6 @@ require_once __DIR__ . "/../components/sidebar.php";
                                     <?php if ($produtoItem['estoque'] <= 0): ?>
                                         <span class="estoque-aviso">Produto Fora de Estoque</span>
                                     <?php endif; ?>
-
                                     <div class="product-actions">
                                         <!-- Botão Detalhes redirecionando para a página do produto -->
                                         <a href="produto.php?id=<?php echo $produtoItem['id']; ?>" class="btn-detalhes">Detalhes</a>
@@ -207,20 +187,15 @@ require_once __DIR__ . "/../components/sidebar.php";
                                 </div>
                             </div>
                             <!-- Fim do Card -->
-
                         <?php endforeach; ?>
                     </div>
-
                 <?php endif; ?>
-
             </div>
         </section>
     </main>
-
 <?php
 require_once __DIR__ . "/../components/footer.php";
 ?>
-
     <script src="../assets/js/sidebar.js"></script>
     <script src="../assets/js/produtos.js"></script>
 </body>

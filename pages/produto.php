@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . "/../config/util.php";
 $conexao = conecta();
-
 // Onde tem os dados dos produtos (Mantendo imagens e descrições do array)
 $produtos = [
     1 => [
@@ -39,24 +38,19 @@ $produtos = [
         'vendedor'       => 'Polaris Óculos',
     ],
 ];
-
 // Qual produto mostrar (vem do link do product-card: /pages/produto.php?id=2)
 $idSelecionado = isset($_GET['id']) ? (int) $_GET['id'] : 1;
-
 if (!isset($produtos[$idSelecionado])) {
     // id inválido ou inexistente - cai no primeiro produto da vitrine
     $chaves = array_keys($produtos);
     $idSelecionado = $chaves[0];
 }
-
 $produto = $produtos[$idSelecionado];
-
 // --- PUXANDO PREÇO E QUANTIDADE DO BANCO DE DADOS ---
 $sqlProduto = "SELECT valor_unitario, quantidade FROM produto WHERE id_produto = :id";
 $selectProduto = $conexao->prepare($sqlProduto);
 $selectProduto->bindParam(":id", $idSelecionado, PDO::PARAM_INT);
 $selectProduto->execute();
-
 if ($selectProduto->rowCount() > 0) {
     $dadosBanco = $selectProduto->fetch(PDO::FETCH_ASSOC);
     $produto['preco']   = $dadosBanco['valor_unitario'];
@@ -65,18 +59,13 @@ if ($selectProduto->rowCount() > 0) {
     // Caso não encontre no banco, zera o estoque por segurança
     $produto['estoque'] = 0;
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <meta name="description" content="E-commerce - Página do produto">
-
     <title><?php echo htmlspecialchars($produto['nome']); ?> | Polaris Óculos</title>
     <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="stylesheet" href="../assets/css/global.css">
@@ -87,13 +76,11 @@ if ($selectProduto->rowCount() > 0) {
     <link rel="stylesheet" href="../assets/css/produto.css">
     
 </head>
-
 <body>
 <?php
 require_once __DIR__ . "/../components/header.php";
 require_once __DIR__ . "/../components/sidebar.php";
 ?>
-
     <nav class="breadcrumb">
         <a href="../index.php">Início</a> ›
         <a href="produtos.php?categoria=<?php echo urlencode($produto['categoria']); ?>">
@@ -101,15 +88,11 @@ require_once __DIR__ . "/../components/sidebar.php";
         </a> ›
         <span aria-current="true"><?php echo htmlspecialchars($produto['nome']); ?></span>
     </nav>
-
     <main>
         <section class="product-detail">
             <div class="container">
-
                 <div class="product-detail-grid">
-
                     <div class="product-detail-main">
-
                         <div class="product-gallery">
                             <div class="product-thumbs">
                                 <?php foreach ($produto['imagens'] as $indice => $imagem): ?>
@@ -125,7 +108,6 @@ require_once __DIR__ . "/../components/sidebar.php";
                                     </button>
                                 <?php endforeach; ?>
                             </div>
-
                             <div class="product-main-image">
                                 <img
                                     class="js-main-image"
@@ -134,30 +116,24 @@ require_once __DIR__ . "/../components/sidebar.php";
                                 >
                             </div>
                         </div>
-
                         <span class="product-detail-category">
                             <?php echo htmlspecialchars(ucfirst($produto['categoria'])); ?>
                         </span>
                         <h1 class="product-detail-title">
                             <?php echo htmlspecialchars($produto['nome']); ?>
                         </h1>
-
                         <div class="product-detail-description">
                             <h2>Descrição</h2>
                             <p><?php echo htmlspecialchars($produto['descricao']); ?></p>
                         </div>
-
                     </div>
-
                     <aside class="buybox">
                         <p class="buybox-price">
                             R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?>
                         </p>
-
                         <form action="carrinho.php" method="post">
                             <input type="hidden" name="operacao" value="incluir">
                             <input type="hidden" name="id_produto" value="<?php echo $produto['id']; ?>">
-
                             <div class="buybox-quantity">
                                 <span>Quantidade: <?php echo (int) $produto['estoque']; ?> disponíveis</span>
                                 
@@ -178,7 +154,6 @@ require_once __DIR__ . "/../components/sidebar.php";
                                     <span style="color: #d9534f; font-weight: bold; display: block; margin-top: 5px;">Produto Fora de Estoque</span>
                                 <?php endif; ?>
                             </div>
-
                             <div class="buybox-actions">
                                 <?php if ($produto['estoque'] > 0): ?>
                                     <button type="submit" class="btn btn-primary">Reservar Agora</button>
@@ -187,23 +162,18 @@ require_once __DIR__ . "/../components/sidebar.php";
                                 <?php endif; ?>
                             </div>
                         </form>
-
                         <div class="buybox-seller">
                             <span>Vendido por</span>
                             <strong><?php echo htmlspecialchars($produto['vendedor']); ?></strong>
                         </div>
                     </aside>
-
                 </div>
-
             </div>
         </section>
     </main>
-
 <?php
 require_once __DIR__ . "/../components/footer.php";
 ?>
-
     <script src="../assets/js/sidebar.js"></script>
     <script>
         // Troca da imagem principal ao clicar numa miniatura
@@ -216,11 +186,9 @@ require_once __DIR__ . "/../components/footer.php";
                 botao.classList.add('is-active');
             });
         });
-
         // Contador de quantidade com limite de estoque
         var qtyInput = document.querySelector('.js-qty-input');
         var maxEstoque = <?php echo (int) $produto['estoque']; ?>;
-
         if (qtyInput) {
             document.querySelector('.js-qty-minus').addEventListener('click', function () {
                 var valor = Math.max(1, parseInt(qtyInput.value || '1', 10) - 1);
