@@ -11,6 +11,7 @@
 // Ao fechar o carrinho, grava a compra no banco: um registro em COMPRA
 // e um registro em COMPRA_PRODUTO para cada item, exatamente como o
 // admin/relatorio.php (Monitor de vendas) espera para conseguir listar.
+// Também subtrai do estoque a quantidade reservada de cada item.
 // -----------------------------------------------------------------------
 
 require_once __DIR__ . "/../config/database.php";
@@ -162,8 +163,7 @@ if ($operacao === 'fechar') {
         $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $conexao->beginTransaction();
 
-        // 1) COMPRA: um registro por fechamento de carrinho.
-        // ADICIONADO: status = 'reservado' forçando a mudança no banco de dados
+        // 1) COMPRA: um registro por fechamento de carrinho, já com status 'reservado'
         $insereCompra = $conexao->prepare(
             "INSERT INTO compra (data, fk_usuario, acrescimo_total, sessao, status)
              VALUES (NOW(), :fk_usuario, :acrescimo_total, :sessao, 'reservado')
@@ -184,6 +184,16 @@ if ($operacao === 'fechar') {
              VALUES (:fk_compra, :fk_produto, :quantidade, :valor_unitario)"
         );
 
+        // 3) ESTOQUE: subtrai a quantidade reservada SOMENTE se ainda houver
+        // quantidade suficiente. A condição no WHERE evita estoque negativo
+        // mesmo com 2 clientes reservando ao mesmo tempo.
+        $atualizaEstoque = $conexao->prepare(
+            "UPDATE produto
+                SET quantidade = quantidade - :qtd
+              WHERE id_produto = :id
+                AND quantidade >= :qtd"
+        );
+
         foreach ($_SESSION['carrinho'] as $idItem => $dadosItem) {
             if (!isset($produtos[$idItem])) {
                 continue;
@@ -194,15 +204,15 @@ if ($operacao === 'fechar') {
             $insereItem->bindValue(":quantidade", $dadosItem['qtdade'], PDO::PARAM_INT);
             $insereItem->bindValue(":valor_unitario", $produtos[$idItem]['preco']);
             $insereItem->execute();
-            
-            // Opcional: Subtrair a quantidade reservada do estoque na tabela 'produto'
-            // Se você quiser que o estoque diminua na hora da reserva, descomente as linhas abaixo:
-            /*
-            $atualizaEstoque = $conexao->prepare("UPDATE produto SET quantidade = quantidade - :qtd WHERE id_produto = :id");
+
             $atualizaEstoque->bindValue(":qtd", $dadosItem['qtdade'], PDO::PARAM_INT);
             $atualizaEstoque->bindValue(":id", $idItem, PDO::PARAM_INT);
             $atualizaEstoque->execute();
-            */
+
+            // Nenhuma linha afetada = estoque insuficiente -> desfaz tudo
+            if ($atualizaEstoque->rowCount() === 0) {
+                throw new PDOException("estoque_insuficiente");
+            }
         }
 
         $conexao->commit();
@@ -217,7 +227,11 @@ if ($operacao === 'fechar') {
             $conexao->rollBack();
         }
 
-        header("Location: carrinho.php?erroCompra=1");
+        if ($e->getMessage() === 'estoque_insuficiente') {
+            header("Location: carrinho.php?erroCompra=estoque");
+        } else {
+            header("Location: carrinho.php?erroCompra=1");
+        }
         exit;
     }
 }
@@ -316,6 +330,10 @@ require_once __DIR__ . "/../components/sidebar.php";
                 <?php if ($erroCompra === 'login'): ?>
                     <div class="cart-message cart-message-erro">
                         Você precisa <u><a href="login.php">estar logado</a></u> para finalizar a reserva.
+                    </div>
+                <?php elseif ($erroCompra === 'estoque'): ?>
+                    <div class="cart-message cart-message-erro">
+                        Algum item do seu carrinho não tem mais estoque suficiente. Revise as quantidades e tente novamente.
                     </div>
                 <?php elseif ($erroCompra): ?>
                     <div class="cart-message cart-message-erro">
