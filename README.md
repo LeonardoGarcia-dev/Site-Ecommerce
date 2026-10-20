@@ -2,10 +2,7 @@
 
 Aplicação web de loja virtual desenvolvida em **PHP**, com vitrine de produtos, carrinho de compras e um **painel administrativo** para gerenciamento da loja.
 
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+[![My Skills](https://skillicons.dev/icons?i=php,html,css,javascript)](https://skillicons.dev)
 
 ---
 
@@ -49,7 +46,7 @@ O código foi organizado de forma modular, separando páginas, componentes reuti
 | Tecnologia | Uso |
 | --- | --- |
 | **PHP** | Linguagem principal e lógica do servidor |
-| **HTML5 / CSS3** | Estrutura e estilização das páginas |
+| **HTML / CSS** | Estrutura e estilização das páginas |
 | **JavaScript** | Interações no lado do cliente |
 | **PHPMailer** | Envio de e-mails |
 | **Git / GitHub** | Versionamento e colaboração |
@@ -131,7 +128,7 @@ Depois, basta abrir um **Pull Request** para a branch `main` e aguardar a revis�
 Projeto desenvolvido em equipe:
 
 - **Leonardo Garcia** — [@LeonardoGarcia-dev](https://github.com/LeonardoGarcia-dev)
-- **Felipe Silva** — [@OFelipeSilvaTI](https://github.com/OFelipeSilvaTI)
+- **Felipe Silva** — [@OSilvaDevTI](https://github.com/OSilvaDevTI)
 - **Felipe Placo** — [@felipeplaco](https://github.com/felipeplaco)
 - **Guilherme Cortes** - [@CortesGui07](https://github.com/CortesGui07)
 - **João Vitor** - [@joaovitor19cti](https://github.com/joaovitor19cti)
