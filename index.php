@@ -35,15 +35,7 @@
             <div class="carrossel-container">
                 <div class="carrossel-track">
                     <img src="assets/images/oculos1.jpg" alt="Pessoa usando óculos escuros da Polaris" class="slide" />
-                    <img src="assets/images/oculos2.jpg" alt="Óculos da Polaris em destaque" class="slide" />                </div>
-            </div>
-
-            <div class="hero-content">
-                <h1>O modelo de óculos ideal para você</h1>
-                <p>Escolha um modelo clássico ou personalize um  com a sua própria mensagem. Estilo, qualidade.</p>
-
-                <div class="hero-actions">
-                    <a href="pages/produtos.php" class="btn">Ver produtos</a>
+                    <img src="assets/images/oculos2.png" alt="Óculos da Polaris em destaque" class="slide" />
                 </div>
             </div>
         </section>
