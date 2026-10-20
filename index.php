@@ -44,7 +44,6 @@
 
                 <div class="hero-actions">
                     <a href="pages/produtos.php" class="btn">Ver produtos</a>
-                    <a href="pages/produtos.php?categoria=personalizado" class="btn btn-outline">Personalizar o meu</a>
                 </div>
             </div>
         </section>
