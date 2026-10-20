@@ -177,7 +177,7 @@ require_once __DIR__ . "/../components/sidebar.php";
                                                 <input type="hidden" name="operacao" value="incluir">
                                                 <input type="hidden" name="id_produto" value="<?php echo $produtoItem['id']; ?>">
                                                 <input type="hidden" name="quantidade" value="1">
-                                                <button type="submit" class="btn-reservar" style="width: 100%;">Reservar Agora</button>
+                                                <button type="submit" class="btn-reservar" style="width: 100%;">Realizar Reserva</button>
                                             </form>
                                         <?php else: ?>
                                             <!-- Botão desativado se não tiver estoque -->
