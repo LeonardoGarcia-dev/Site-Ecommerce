@@ -1,41 +1,61 @@
 
-/* ========================================
+/* ============================================
    POLARIS ÓCULOS — HOMEPAGE
-   ======================================== */
+   Responsivo: desktop, tablet e celular
+   ============================================ */
 
-/* Configurações gerais da página */
+/* ---------- CONFIGURAÇÕES GERAIS ---------- */
+
 main {
     width: 100%;
-    overflow: hidden;
+    min-width: 0;
+    overflow-x: clip;
+}
+
+main *,
+main *::before,
+main *::after {
+    box-sizing: border-box;
 }
 
 .container {
-    width: min(1180px, 90%);
+    width: min(1180px, calc(100% - 48px));
     margin-inline: auto;
 }
 
-/* ========================================
-   HERO / CARROSSEL
-   ======================================== */
+img,
+iframe {
+    max-width: 100%;
+}
+
+/* ============================================
+   1. HERO / CARROSSEL
+   Mantém a proporção original das imagens
+   ============================================ */
 
 .hero {
     width: 100%;
-    position: relative;
-    background: #f8fafc;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
+    background: #ffffff;
 }
 
 .carrossel-container {
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
+    padding: 0;
     overflow: hidden;
-    position: relative;
 }
 
 .carrossel-track {
     display: flex;
     width: 100%;
+    margin: 0;
+    padding: 0;
+    align-items: flex-start;
+    transition: transform 0.7s ease-in-out;
     will-change: transform;
 }
 
@@ -43,29 +63,35 @@ main {
     display: block;
     flex: 0 0 100%;
     width: 100%;
-    height: clamp(280px, 43vw, 590px);
-    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
     object-position: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
-/* ========================================
-   TÍTULOS DAS SEÇÕES
-   ======================================== */
+/* ============================================
+   2. TÍTULOS DAS SEÇÕES
+   ============================================ */
 
 .section-head {
+    margin: 0 0 42px;
     text-align: center;
-    margin-bottom: 42px;
 }
 
 .section-head h2,
 .video-text h2,
 .cta h2 {
+    margin: 0;
     color: #0e1b2b;
-    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
     font-weight: 700;
     line-height: 1.2;
-    letter-spacing: -0.8px;
-    margin: 0;
+    letter-spacing: -0.7px;
+    overflow-wrap: break-word;
 }
 
 .section-head h2::after {
@@ -74,42 +100,45 @@ main {
     width: 54px;
     height: 4px;
     margin: 16px auto 0;
-    border-radius: 10px;
+    border-radius: 99px;
     background: #2563eb;
 }
 
-/* ========================================
-   CATEGORIAS
-   ======================================== */
+/* ============================================
+   3. CATEGORIAS
+   ============================================ */
 
 .categories {
-    padding: 88px 0 96px;
+    width: 100%;
+    padding: 84px 0 96px;
     background: #ffffff;
 }
 
 .category-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 30px;
+    gap: 28px;
+    width: 100%;
     max-width: 940px;
     margin: 0 auto;
 }
 
 .category-grid > a {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-width: 0;
-    min-height: 350px;
-    padding: 28px;
+    min-height: 340px;
+    padding: 26px;
     overflow: hidden;
-    text-decoration: none;
     color: #0e1b2b;
+    text-align: center;
+    text-decoration: none;
     background: #f8fafc;
     border: 1px solid #e5eaf1;
     border-radius: 18px;
+
     transition:
         transform 0.3s ease,
         box-shadow 0.3s ease,
@@ -117,30 +146,33 @@ main {
 }
 
 .category-grid > a:hover {
-    transform: translateY(-7px);
+    transform: translateY(-5px);
     border-color: #bfdbfe;
-    box-shadow: 0 18px 40px rgba(14, 27, 43, 0.10);
+    box-shadow: 0 16px 36px rgba(14, 27, 43, 0.09);
 }
 
 .category-grid img {
     display: block;
     width: 100%;
-    height: 270px;
+    max-width: 100%;
+    height: 250px;
     object-fit: contain;
-    transition: transform 0.4s ease;
+    object-position: center;
+    transition: transform 0.35s ease;
 }
 
 .category-grid > a:hover img {
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 .cat-nome {
-    display: inline-block;
-    margin-top: 20px;
+    display: block;
+    margin-top: 18px;
     color: #0e1b2b;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    text-align: center;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
     transition: color 0.2s ease;
 }
 
@@ -148,12 +180,13 @@ main {
     color: #2563eb;
 }
 
-/* ========================================
-   SEÇÃO DE VÍDEO
-   ======================================== */
+/* ============================================
+   4. APRESENTAÇÃO EM VÍDEO
+   ============================================ */
 
 .video {
-    padding: 90px 0;
+    width: 100%;
+    padding: 88px 0;
     background: #f8fafc;
     border-top: 1px solid #eef2f7;
     border-bottom: 1px solid #eef2f7;
@@ -161,33 +194,41 @@ main {
 
 .video-grid {
     display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    grid-template-columns:
+        minmax(0, 0.85fr)
+        minmax(0, 1.15fr);
     align-items: center;
-    gap: 64px;
+    gap: 56px;
+}
+
+.video-text {
+    min-width: 0;
 }
 
 .video-text h2 {
     max-width: 460px;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
 .video-text p {
-    max-width: 450px;
+    max-width: 460px;
     margin: 0;
     color: #526174;
     font-size: 1.05rem;
-    line-height: 1.9;
+    line-height: 1.85;
+    overflow-wrap: break-word;
 }
 
 .video-wrap {
     position: relative;
     width: 100%;
+    min-width: 0;
     aspect-ratio: 16 / 9;
     overflow: hidden;
     background: #0e1b2b;
     border: 1px solid #e2e8f0;
     border-radius: 16px;
-    box-shadow: 0 18px 45px rgba(14, 27, 43, 0.12);
+    box-shadow: 0 16px 40px rgba(14, 27, 43, 0.1);
 }
 
 .video-wrap iframe {
@@ -199,50 +240,57 @@ main {
     border: 0;
 }
 
-/* ========================================
-   CHAMADA FINAL — CTA
-   ======================================== */
+/* ============================================
+   5. CHAMADA FINAL
+   ============================================ */
 
 .cta {
-    padding: 95px 0;
+    width: 100%;
+    padding: 88px 0;
     background: #ffffff;
     text-align: center;
 }
 
 .cta .container {
-    padding: 58px 28px;
+    padding: 58px 32px;
     background: #0e1b2b;
     border-radius: 22px;
-    box-shadow: 0 20px 50px rgba(14, 27, 43, 0.12);
+    box-shadow: 0 18px 45px rgba(14, 27, 43, 0.12);
 }
 
 .cta h2 {
-    max-width: 720px;
+    max-width: 760px;
     margin: 0 auto 18px;
     color: #ffffff;
 }
 
 .cta p {
+    max-width: 620px;
     margin: 0 auto 30px;
     color: #cbd5e1;
     font-size: 1.05rem;
     line-height: 1.8;
+    overflow-wrap: break-word;
 }
 
-/* Botão de produtos */
 .cta .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-height: 50px;
+    max-width: 100%;
     padding: 14px 30px;
     color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    text-decoration: none;
     background: #2563eb;
     border: 1px solid #2563eb;
     border-radius: 10px;
-    font-size: 0.98rem;
-    font-weight: 700;
-    text-decoration: none;
+    cursor: pointer;
+
     transition:
         background 0.25s ease,
         border-color 0.25s ease,
@@ -254,26 +302,20 @@ main {
     background: #1d4ed8;
     border-color: #1d4ed8;
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.28);
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.25);
 }
 
-.cta .btn:focus-visible,
-.category-grid > a:focus-visible {
-    outline: 3px solid #60a5fa;
-    outline-offset: 4px;
-}
-
-/* ========================================
-   ANIMAÇÕES DE ENTRADA
-   Compatível com elementos .reveal
-   ======================================== */
+/* ============================================
+   6. ANIMAÇÕES DE ENTRADA
+   Compatível com home.js
+   ============================================ */
 
 .js .reveal {
     opacity: 0;
-    transform: translateY(22px);
+    transform: translateY(20px);
     transition:
-        opacity 0.65s ease,
-        transform 0.65s ease;
+        opacity 0.6s ease,
+        transform 0.6s ease;
 }
 
 .js .reveal.visible {
@@ -281,13 +323,27 @@ main {
     transform: translateY(0);
 }
 
-/* ========================================
-   RESPONSIVIDADE — TABLETS
-   ======================================== */
+/* ============================================
+   7. ACESSIBILIDADE
+   ============================================ */
+
+.category-grid > a:focus-visible,
+.cta .btn:focus-visible {
+    outline: 3px solid #60a5fa;
+    outline-offset: 4px;
+}
+
+/* ============================================
+   8. TABLETS
+   ============================================ */
 
 @media (max-width: 900px) {
+    .container {
+        width: calc(100% - 40px);
+    }
+
     .categories {
-        padding: 70px 0;
+        padding: 68px 0 76px;
     }
 
     .category-grid {
@@ -295,21 +351,21 @@ main {
     }
 
     .category-grid > a {
-        min-height: 300px;
-        padding: 22px;
+        min-height: 290px;
+        padding: 20px;
     }
 
     .category-grid img {
-        height: 220px;
+        height: 210px;
     }
 
     .video {
-        padding: 70px 0;
+        padding: 68px 0;
     }
 
     .video-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 30px;
     }
 
     .video-text {
@@ -319,7 +375,8 @@ main {
     .video-text h2,
     .video-text p {
         max-width: 650px;
-        margin-inline: auto;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .video-text h2 {
@@ -327,51 +384,76 @@ main {
     }
 
     .video-wrap {
+        width: 100%;
         max-width: 750px;
-        margin-inline: auto;
+        margin: 0 auto;
     }
 
     .cta {
-        padding: 70px 0;
+        padding: 68px 0;
     }
 }
 
-/* ========================================
-   RESPONSIVIDADE — CELULARES
-   ======================================== */
+/* ============================================
+   9. CELULARES
+   ============================================ */
 
 @media (max-width: 600px) {
     .container {
-        width: 90%;
+        width: calc(100% - 32px);
+    }
+
+    /*
+       O banner mantém a proporção nativa.
+       Não definir altura fixa nem aspect-ratio
+       para não cortar o texto ou as pessoas.
+    */
+
+    .hero,
+    .carrossel-container {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
     }
 
     .carrossel-track .slide {
-        height: 280px;
-        object-fit: cover;
-    }
-
-    .section-head {
-        margin-bottom: 28px;
+        flex: 0 0 100%;
+        width: 100%;
+        height: auto;
+        aspect-ratio: auto;
+        object-fit: contain;
+        object-position: center;
     }
 
     .categories {
-        padding: 54px 0 60px;
+        padding: 48px 0 54px;
+    }
+
+    .section-head {
+        margin-bottom: 30px;
+    }
+
+    .section-head h2,
+    .video-text h2,
+    .cta h2 {
+        font-size: clamp(1.5rem, 6vw, 1.9rem);
+        letter-spacing: -0.4px;
     }
 
     .category-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 18px;
-        max-width: 400px;
+        max-width: 380px;
     }
 
     .category-grid > a {
-        min-height: 280px;
+        min-height: 0;
         padding: 20px;
         border-radius: 15px;
     }
 
     .category-grid img {
-        height: 220px;
+        height: 210px;
     }
 
     .cat-nome {
@@ -380,11 +462,11 @@ main {
     }
 
     .video {
-        padding: 55px 0;
+        padding: 48px 0;
     }
 
     .video-grid {
-        gap: 26px;
+        gap: 24px;
     }
 
     .video-text p,
@@ -398,270 +480,12 @@ main {
     }
 
     .cta {
-        padding: 50px 0;
-    }
-
-    .cta .container {
-        width: 90%;
-        padding: 38px 20px;
-        border-radius: 16px;
-    }
-
-    .cta .btn {
-        width: 100%;
-        max-width: 280px;
-    }
-}
-
-/* ========================================
-   ACESSIBILIDADE — MOVIMENTO REDUZIDO
-   ======================================== */
-
-@media (prefers-reduced-motion: reduce) {
-    .category-grid > a,
-    .category-grid img,
-    .cat-nome,
-    .cta .btn,
-    .js .reveal {
-        transition: none;
-    }
-
-    .category-grid > a:hover,
-    .cta .btn:hover {
-        transform: none;
-    }
-}
-
-
-/* ========================================
-   RESPONSIVIDADE REFORÇADA — POLARIS
-   ======================================== */
-
-/* Evita que elementos ultrapassem a tela */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-html {
-    width: 100%;
-    overflow-x: clip;
-    scroll-behavior: smooth;
-}
-
-body {
-    width: 100%;
-    min-width: 320px;
-    margin: 0;
-    overflow-x: clip;
-}
-
-main,
-.hero,
-.categories,
-.video,
-.cta {
-    width: 100%;
-    min-width: 0;
-}
-
-img,
-iframe {
-    max-width: 100%;
-}
-
-/* Imagens do carrossel */
-.carrossel-container {
-    width: 100%;
-    overflow: hidden;
-}
-
-.carrossel-track {
-    display: flex;
-    width: 100%;
-}
-
-.carrossel-track .slide {
-    flex: 0 0 100%;
-    width: 100%;
-    min-width: 0;
-    height: clamp(220px, 43vw, 590px);
-    object-fit: cover;
-    object-position: center;
-}
-
-/* Categorias */
-.category-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.category-grid > a {
-    min-width: 0;
-}
-
-.category-grid img {
-    max-width: 100%;
-    object-fit: contain;
-}
-
-/* Vídeo adaptável */
-.video-grid {
-    grid-template-columns:
-        minmax(0, 0.85fr)
-        minmax(0, 1.15fr);
-}
-
-.video-wrap {
-    width: 100%;
-    min-width: 0;
-    aspect-ratio: 16 / 9;
-}
-
-.video-wrap iframe {
-    width: 100%;
-    height: 100%;
-}
-
-/* Tablets e celulares grandes */
-@media (max-width: 768px) {
-    .container {
-        width: calc(100% - 36px);
-    }
-
-    .carrossel-track .slide {
-        height: clamp(240px, 52vw, 400px);
-    }
-
-    .categories {
-        padding: 56px 0;
-    }
-
-    .section-head {
-        margin-bottom: 28px;
-    }
-
-    .category-grid {
-        gap: 16px;
-    }
-
-    .category-grid > a {
-        min-height: 250px;
-        padding: 16px;
-        border-radius: 14px;
-    }
-
-    .category-grid img {
-        height: clamp(140px, 27vw, 220px);
-    }
-
-    .cat-nome {
-        margin-top: 12px;
-        font-size: 1rem;
-    }
-
-    .video {
-        padding: 56px 0;
-    }
-
-    .video-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 26px;
-    }
-
-    .video-text {
-        text-align: center;
-    }
-
-    .video-text h2,
-    .video-text p {
-        max-width: 600px;
-        margin-right: auto;
-        margin-left: auto;
-    }
-
-    .video-text h2 {
-        margin-bottom: 16px;
-    }
-
-    .cta {
-        padding: 50px 0;
-    }
-
-    .cta .container {
-        padding: 38px 24px;
-    }
-}
-
-/* Celulares */
-@media (max-width: 480px) {
-    .container {
-        width: calc(100% - 32px);
-    }
-
-    .carrossel-track .slide {
-        height: 250px;
-        object-fit: cover;
-    }
-
-    .section-head h2,
-    .video-text h2,
-    .cta h2 {
-        font-size: clamp(1.5rem, 6vw, 1.85rem);
-        letter-spacing: -0.4px;
-    }
-
-    .categories {
-        padding: 44px 0 48px;
-    }
-
-    /* Mantém os cards grandes e fáceis de tocar */
-    .category-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-        max-width: 360px;
-        margin: 0 auto;
-    }
-
-    .category-grid > a {
-        min-height: 0;
-        padding: 20px;
-    }
-
-    .category-grid img {
-        width: 100%;
-        height: 210px;
-    }
-
-    .cat-nome {
-        font-size: 1.05rem;
-    }
-
-    .video {
-        padding: 46px 0;
-    }
-
-    .video-grid {
-        gap: 22px;
-    }
-
-    .video-text p,
-    .cta p {
-        font-size: 0.95rem;
-        line-height: 1.7;
-    }
-
-    .video-wrap {
-        border-radius: 12px;
-    }
-
-    .cta {
-        padding: 38px 0;
+        padding: 44px 0;
     }
 
     .cta .container {
         width: calc(100% - 32px);
-        padding: 32px 20px;
+        padding: 36px 20px;
         border-radius: 16px;
     }
 
@@ -672,26 +496,32 @@ iframe {
     .cta .btn {
         display: flex;
         width: 100%;
-        min-height: 48px;
         max-width: 300px;
+        min-height: 48px;
         margin: 0 auto;
-        align-items: center;
-        justify-content: center;
+        padding: 13px 20px;
     }
 }
 
-/* Celulares muito estreitos */
+/* ============================================
+   10. CELULARES ESTREITOS
+   ============================================ */
+
 @media (max-width: 360px) {
     .container {
         width: calc(100% - 24px);
     }
 
-    .carrossel-track .slide {
-        height: 220px;
+    .categories {
+        padding: 40px 0;
+    }
+
+    .category-grid > a {
+        padding: 16px;
     }
 
     .category-grid img {
-        height: 180px;
+        height: 175px;
     }
 
     .cta .container {
@@ -700,16 +530,23 @@ iframe {
     }
 }
 
-/* Respeita a preferência por menos animações */
+/* ============================================
+   11. PREFERÊNCIA POR MOVIMENTO REDUZIDO
+   ============================================ */
+
 @media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
+    .category-grid > a,
+    .category-grid img,
+    .cat-nome,
+    .cta .btn,
+    .js .reveal,
+    .carrossel-track {
+        transition: none !important;
+        animation: none !important;
     }
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
+    .category-grid > a:hover,
+    .cta .btn:hover {
+        transform: none;
     }
 }
