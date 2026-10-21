@@ -19,7 +19,7 @@
 .products h1 {
     margin-bottom: 40px;
     text-align: center;
-    color: #ffffff;
+    color: #082746;
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: 0.01em;
@@ -141,7 +141,7 @@
 }
 
 body {
-    background-color: #002f5e;
+    background-color: #ffffff;
 }
 
 /* Celular (sem hover): miniaturas sempre visíveis */

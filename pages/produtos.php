@@ -3,8 +3,8 @@ require_once __DIR__ . "/../config/util.php";
 $conexao = conecta();
 // Onde o cliente ve o grid dos oculos rpzd
 $produtos = [
-    1 => [
-        'id'             => 1,
+    3 => [
+        'id'             => 3,
         'nome'           => 'Óculos Comum',
         'categoria'      => 'comum',
         'personalizavel' => false,
@@ -20,8 +20,8 @@ $produtos = [
         'descricao'      => 'Estilo clássico e versatilidade essencial: o óculos preto perfeito para qualquer ocasião',
         'vendedor'       => 'Polaris Óculos',
     ],
-    2 => [
-        'id'             => 2,
+    4 => [
+        'id'             => 4,
         'nome'           => 'Óculos Personalizado',
         'categoria'      => 'personalizado',
         'personalizavel' => true,
