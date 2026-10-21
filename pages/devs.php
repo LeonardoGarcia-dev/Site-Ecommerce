@@ -43,7 +43,7 @@
         <section class="devs-lista">
 
             <article class="dev-card">
-                <div class="dev-avatar">LG</div>
+                <img class="dev-avatar" src="../assets/images/leo.jpeg" alt="Foto de Leonardo Garcia">
                 <h2>Leonardo Garcia</h2>
                 <p class="dev-funcao">Desenvolvedor Full-Stack</p>
                 <a
@@ -58,7 +58,7 @@
             </article>
 
             <article class="dev-card">
-                <div class="dev-avatar">FS</div>
+                <img class="dev-avatar" src="../assets/images/felipesilva.jpeg" alt="Foto de Felipe Silva">
                 <h2>Felipe Silva</h2>
                 <p class="dev-funcao">Desenvolvedor Back-End</p>
                 <a
@@ -73,7 +73,7 @@
             </article>
 
             <article class="dev-card">
-                <div class="dev-avatar">FP</div>
+                <img class="dev-avatar" src="../assets/images/placo.jpeg" alt="Foto de Felipe Placo">
                 <h2>Felipe Placo</h2>
                 <p class="dev-funcao">Desenvolvedor Full-Stack</p>
                 <a
@@ -88,7 +88,7 @@
             </article>
 
             <article class="dev-card">
-                <div class="dev-avatar">GC</div>
+                <img class="dev-avatar" src="../assets/images/cortes.jpeg" alt="Foto de Guilherme Cortes">
                 <h2>Guilherme Cortes</h2>
                 <p class="dev-funcao">Desenvolvedor | Marketing</p>
                 <a
@@ -102,9 +102,8 @@
                 </a>
             </article>
 
-
             <article class="dev-card">
-                <div class="dev-avatar">GC</div>
+                <img class="dev-avatar" src="../assets/images/joao.jpeg" alt="Foto de João Vitor">
                 <h2>João Vitor</h2>
                 <p class="dev-funcao">Desenvolvedor</p>
                 <a
