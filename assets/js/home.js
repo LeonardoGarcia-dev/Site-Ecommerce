@@ -1,44 +1,90 @@
-// Scripts da página inicial
+document.addEventListener("DOMContentLoaded", () => {
+    // ========================================
+    // ANIMAÇÕES DE ENTRADA (REVEAL)
+    // ========================================
 
-document.addEventListener("DOMContentLoaded", function () {
+    const elementosReveal = document.querySelectorAll(".reveal");
 
-    // Aparecer ao rolar: adiciona .visivel quando o elemento entra na tela
-    const itens = document.querySelectorAll(".reveal");
-
+    // Fallback para navegadores sem suporte ao IntersectionObserver
     if (!("IntersectionObserver" in window)) {
-        itens.forEach(function (el) { el.classList.add("visivel"); });
-        return;
+        elementosReveal.forEach((elemento) => {
+            elemento.classList.add("visible");
+        });
+    } else {
+        const observer = new IntersectionObserver(
+            (entradas, observador) => {
+                entradas.forEach((entrada) => {
+                    if (entrada.isIntersecting) {
+                        entrada.target.classList.add("visible");
+                        observador.unobserve(entrada.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -30px 0px"
+            }
+        );
+
+        elementosReveal.forEach((elemento, index) => {
+            // Pequeno atraso para criar um efeito sequencial
+            elemento.style.transitionDelay = `${(index % 4) * 100}ms`;
+            observer.observe(elemento);
+        });
     }
 
-    const observador = new IntersectionObserver(function (entradas) {
-        entradas.forEach(function (entrada) {
-            if (entrada.isIntersecting) {
-                const el = entrada.target;
-                el.classList.add("visivel");
-                observador.unobserve(el);
+    // ========================================
+    // CARROSSEL AUTOMÁTICO DO BANNER
+    // ========================================
 
-                // depois que a entrada termina, devolve o elemento ao estilo normal
-                // (assim o hover dos cards volta a funcionar sem atraso)
-                setTimeout(function () {
-                    el.classList.remove("reveal", "visivel");
-                    el.style.transitionDelay = "";
-                }, 1200);
+    const track = document.querySelector(".carrossel-track");
+
+    if (track) {
+        const slides = Array.from(track.querySelectorAll(".slide"));
+        let slideAtual = 0;
+        let intervalo = null;
+
+        const movimentoReduzido = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        // Configura o carrossel
+        track.style.transition = movimentoReduzido
+            ? "none"
+            : "transform 0.7s ease-in-out";
+
+        function mostrarSlide(indice) {
+            slideAtual = indice;
+            track.style.transform = `translateX(-${slideAtual * 100}%)`;
+        }
+
+        // Inicia somente se houver mais de uma imagem
+        if (slides.length > 1) {
+            mostrarSlide(0);
+
+            if (!movimentoReduzido) {
+                intervalo = window.setInterval(() => {
+                    const proximoSlide = (slideAtual + 1) % slides.length;
+                    mostrarSlide(proximoSlide);
+                }, 5000);
+            }
+        }
+
+        // Evita manter o intervalo quando a página está oculta
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && intervalo !== null) {
+                clearInterval(intervalo);
+                intervalo = null;
+            } else if (
+                !document.hidden &&
+                !movimentoReduzido &&
+                slides.length > 1 &&
+                intervalo === null
+            ) {
+                intervalo = window.setInterval(() => {
+                    mostrarSlide((slideAtual + 1) % slides.length);
+                }, 5000);
             }
         });
-    }, { threshold: 0.15 });
-
-    itens.forEach(function (el, i) {
-        // pequeno atraso escalonado entre irmãos (cards lado a lado)
-        el.style.transitionDelay = (i % 4) * 0.08 + "s";
-        observador.observe(el);
-    });
-
-    // Brilho que segue o mouse no botao ver produtos
-        document.querySelectorAll(".btn-outline, .hero-actions .btn, .cta .btn").forEach(function (botao) {        botao.addEventListener("mousemove", function (e) {
-            const area = botao.getBoundingClientRect();
-            botao.style.setProperty("--x", (e.clientX - area.left) + "px");
-            botao.style.setProperty("--y", (e.clientY - area.top) + "px");
-        });
-    });
-
+    }
 });

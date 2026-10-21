@@ -1,165 +1,715 @@
 
-/* ===== CARROSSEL PRINCIPAL ===== */
+/* ========================================
+   POLARIS ÓCULOS — HOMEPAGE
+   ======================================== */
 
-.hero {
-    position: relative;
+/* Configurações gerais da página */
+main {
     width: 100%;
-    height: auto;
-    min-height: 0;
-    aspect-ratio: 1672 / 940;
     overflow: hidden;
-
-    display: flex;
-    align-items: center;
-
-    background-color: #f0f0f0;
 }
 
-/* Camada das imagens */
+.container {
+    width: min(1180px, 90%);
+    margin-inline: auto;
+}
+
+/* ========================================
+   HERO / CARROSSEL
+   ======================================== */
+
+.hero {
+    width: 100%;
+    position: relative;
+    background: #f8fafc;
+    overflow: hidden;
+}
+
 .carrossel-container {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.carrossel-track {
+    display: flex;
+    width: 100%;
+    will-change: transform;
+}
+
+.carrossel-track .slide {
+    display: block;
+    flex: 0 0 100%;
+    width: 100%;
+    height: clamp(280px, 43vw, 590px);
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ========================================
+   TÍTULOS DAS SEÇÕES
+   ======================================== */
+
+.section-head {
+    text-align: center;
+    margin-bottom: 42px;
+}
+
+.section-head h2,
+.video-text h2,
+.cta h2 {
+    color: #0e1b2b;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.8px;
+    margin: 0;
+}
+
+.section-head h2::after {
+    content: "";
+    display: block;
+    width: 54px;
+    height: 4px;
+    margin: 16px auto 0;
+    border-radius: 10px;
+    background: #2563eb;
+}
+
+/* ========================================
+   CATEGORIAS
+   ======================================== */
+
+.categories {
+    padding: 88px 0 96px;
+    background: #ffffff;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+    max-width: 940px;
+    margin: 0 auto;
+}
+
+.category-grid > a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 350px;
+    padding: 28px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #0e1b2b;
+    background: #f8fafc;
+    border: 1px solid #e5eaf1;
+    border-radius: 18px;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.category-grid > a:hover {
+    transform: translateY(-7px);
+    border-color: #bfdbfe;
+    box-shadow: 0 18px 40px rgba(14, 27, 43, 0.10);
+}
+
+.category-grid img {
+    display: block;
+    width: 100%;
+    height: 270px;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.category-grid > a:hover img {
+    transform: scale(1.05);
+}
+
+.cat-nome {
+    display: inline-block;
+    margin-top: 20px;
+    color: #0e1b2b;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-align: center;
+    transition: color 0.2s ease;
+}
+
+.category-grid > a:hover .cat-nome {
+    color: #2563eb;
+}
+
+/* ========================================
+   SEÇÃO DE VÍDEO
+   ======================================== */
+
+.video {
+    padding: 90px 0;
+    background: #f8fafc;
+    border-top: 1px solid #eef2f7;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: 64px;
+}
+
+.video-text h2 {
+    max-width: 460px;
+    margin-bottom: 22px;
+}
+
+.video-text p {
+    max-width: 450px;
+    margin: 0;
+    color: #526174;
+    font-size: 1.05rem;
+    line-height: 1.9;
+}
+
+.video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #0e1b2b;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(14, 27, 43, 0.12);
+}
+
+.video-wrap iframe {
     position: absolute;
     inset: 0;
-    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ========================================
+   CHAMADA FINAL — CTA
+   ======================================== */
+
+.cta {
+    padding: 95px 0;
+    background: #ffffff;
+    text-align: center;
+}
+
+.cta .container {
+    padding: 58px 28px;
+    background: #0e1b2b;
+    border-radius: 22px;
+    box-shadow: 0 20px 50px rgba(14, 27, 43, 0.12);
+}
+
+.cta h2 {
+    max-width: 720px;
+    margin: 0 auto 18px;
+    color: #ffffff;
+}
+
+.cta p {
+    margin: 0 auto 30px;
+    color: #cbd5e1;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* Botão de produtos */
+.cta .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 14px 30px;
+    color: #ffffff;
+    background: #2563eb;
+    border: 1px solid #2563eb;
+    border-radius: 10px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.cta .btn:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.28);
+}
+
+.cta .btn:focus-visible,
+.category-grid > a:focus-visible {
+    outline: 3px solid #60a5fa;
+    outline-offset: 4px;
+}
+
+/* ========================================
+   ANIMAÇÕES DE ENTRADA
+   Compatível com elementos .reveal
+   ======================================== */
+
+.js .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+        opacity 0.65s ease,
+        transform 0.65s ease;
+}
+
+.js .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================
+   RESPONSIVIDADE — TABLETS
+   ======================================== */
+
+@media (max-width: 900px) {
+    .categories {
+        padding: 70px 0;
+    }
+
+    .category-grid {
+        gap: 20px;
+    }
+
+    .category-grid > a {
+        min-height: 300px;
+        padding: 22px;
+    }
+
+    .category-grid img {
+        height: 220px;
+    }
+
+    .video {
+        padding: 70px 0;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .video-text {
+        text-align: center;
+    }
+
+    .video-text h2,
+    .video-text p {
+        max-width: 650px;
+        margin-inline: auto;
+    }
+
+    .video-text h2 {
+        margin-bottom: 16px;
+    }
+
+    .video-wrap {
+        max-width: 750px;
+        margin-inline: auto;
+    }
+
+    .cta {
+        padding: 70px 0;
+    }
+}
+
+/* ========================================
+   RESPONSIVIDADE — CELULARES
+   ======================================== */
+
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
+
+    .carrossel-track .slide {
+        height: 280px;
+        object-fit: cover;
+    }
+
+    .section-head {
+        margin-bottom: 28px;
+    }
+
+    .categories {
+        padding: 54px 0 60px;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        max-width: 400px;
+    }
+
+    .category-grid > a {
+        min-height: 280px;
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .category-grid img {
+        height: 220px;
+    }
+
+    .cat-nome {
+        margin-top: 14px;
+        font-size: 1.05rem;
+    }
+
+    .video {
+        padding: 55px 0;
+    }
+
+    .video-grid {
+        gap: 26px;
+    }
+
+    .video-text p,
+    .cta p {
+        font-size: 0.96rem;
+        line-height: 1.75;
+    }
+
+    .video-wrap {
+        border-radius: 12px;
+    }
+
+    .cta {
+        padding: 50px 0;
+    }
+
+    .cta .container {
+        width: 90%;
+        padding: 38px 20px;
+        border-radius: 16px;
+    }
+
+    .cta .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+/* ========================================
+   ACESSIBILIDADE — MOVIMENTO REDUZIDO
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .category-grid > a,
+    .category-grid img,
+    .cat-nome,
+    .cta .btn,
+    .js .reveal {
+        transition: none;
+    }
+
+    .category-grid > a:hover,
+    .cta .btn:hover {
+        transform: none;
+    }
+}
+
+
+/* ========================================
+   RESPONSIVIDADE REFORÇADA — POLARIS
+   ======================================== */
+
+/* Evita que elementos ultrapassem a tela */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: clip;
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    min-width: 320px;
+    margin: 0;
+    overflow-x: clip;
+}
+
+main,
+.hero,
+.categories,
+.video,
+.cta {
+    width: 100%;
+    min-width: 0;
+}
+
+img,
+iframe {
+    max-width: 100%;
+}
+
+/* Imagens do carrossel */
+.carrossel-container {
+    width: 100%;
     overflow: hidden;
 }
 
 .carrossel-track {
-    position: absolute;
-    inset: 0;
+    display: flex;
     width: 100%;
-    height: 100%;
 }
 
-/* Imagens dos banners */
-.carrossel-track img {
-    position: absolute;
-    inset: 0;
-
-    display: block;
+.carrossel-track .slide {
+    flex: 0 0 100%;
     width: 100%;
-    height: 100%;
-
-    object-fit: contain;
+    min-width: 0;
+    height: clamp(220px, 43vw, 590px);
+    object-fit: cover;
     object-position: center;
-
-    opacity: 0;
-    animation: fadeSlide 10s infinite;
 }
 
-.carrossel-track img:nth-child(1) {
-    animation-delay: 0s;
+/* Categorias */
+.category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.carrossel-track img:nth-child(2) {
-    animation-delay: 5s;
+.category-grid > a {
+    min-width: 0;
 }
 
-/* Transição entre os banners */
-@keyframes fadeSlide {
-    0%   { opacity: 0; }
-    5%   { opacity: 1; }
-    45%  { opacity: 1; }
-    50%  { opacity: 0; }
-    100% { opacity: 0; }
+.category-grid img {
+    max-width: 100%;
+    object-fit: contain;
 }
 
-/* ===== TABLETS ===== */
+/* Vídeo adaptável */
+.video-grid {
+    grid-template-columns:
+        minmax(0, 0.85fr)
+        minmax(0, 1.15fr);
+}
 
-@media (max-width: 900px) {
-    .hero {
-        aspect-ratio: 1672 / 940;
+.video-wrap {
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 16 / 9;
+}
+
+.video-wrap iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* Tablets e celulares grandes */
+@media (max-width: 768px) {
+    .container {
+        width: calc(100% - 36px);
+    }
+
+    .carrossel-track .slide {
+        height: clamp(240px, 52vw, 400px);
+    }
+
+    .categories {
+        padding: 56px 0;
+    }
+
+    .section-head {
+        margin-bottom: 28px;
+    }
+
+    .category-grid {
+        gap: 16px;
+    }
+
+    .category-grid > a {
+        min-height: 250px;
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .category-grid img {
+        height: clamp(140px, 27vw, 220px);
+    }
+
+    .cat-nome {
+        margin-top: 12px;
+        font-size: 1rem;
+    }
+
+    .video {
+        padding: 56px 0;
+    }
+
+    .video-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 26px;
+    }
+
+    .video-text {
+        text-align: center;
+    }
+
+    .video-text h2,
+    .video-text p {
+        max-width: 600px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .video-text h2 {
+        margin-bottom: 16px;
+    }
+
+    .cta {
+        padding: 50px 0;
+    }
+
+    .cta .container {
+        padding: 38px 24px;
+    }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+    .container {
+        width: calc(100% - 32px);
+    }
+
+    .carrossel-track .slide {
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .section-head h2,
+    .video-text h2,
+    .cta h2 {
+        font-size: clamp(1.5rem, 6vw, 1.85rem);
+        letter-spacing: -0.4px;
+    }
+
+    .categories {
+        padding: 44px 0 48px;
+    }
+
+    /* Mantém os cards grandes e fáceis de tocar */
+    .category-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    .category-grid > a {
         min-height: 0;
-        height: auto;
+        padding: 20px;
     }
 
-    .hero-content {
-        width: calc(100% - 40px);
-        padding: 30px 0;
+    .category-grid img {
+        width: 100%;
+        height: 210px;
     }
 
-    .hero h1 {
-        font-size: clamp(26px, 4vw, 40px);
+    .cat-nome {
+        font-size: 1.05rem;
     }
 
-    .hero p {
-        font-size: 16px;
+    .video {
+        padding: 46px 0;
+    }
+
+    .video-grid {
+        gap: 22px;
+    }
+
+    .video-text p,
+    .cta p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .video-wrap {
+        border-radius: 12px;
+    }
+
+    .cta {
+        padding: 38px 0;
+    }
+
+    .cta .container {
+        width: calc(100% - 32px);
+        padding: 32px 20px;
+        border-radius: 16px;
+    }
+
+    .cta p {
+        margin-bottom: 24px;
+    }
+
+    .cta .btn {
+        display: flex;
+        width: 100%;
+        min-height: 48px;
+        max-width: 300px;
+        margin: 0 auto;
+        align-items: center;
+        justify-content: center;
     }
 }
 
-/* ===== CELULARES ===== */
-
-@media (max-width: 600px) {
-    .hero {
-        width: 100%;
-        aspect-ratio: 1672 / 940;
-        min-height: 0;
-        height: auto;
+/* Celulares muito estreitos */
+@media (max-width: 360px) {
+    .container {
+        width: calc(100% - 24px);
     }
 
-    .carrossel-container,
-    .carrossel-track {
-        width: 100%;
-        height: 100%;
+    .carrossel-track .slide {
+        height: 220px;
     }
 
-    .carrossel-track img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center;
+    .category-grid img {
+        height: 180px;
     }
 
-    .hero-content {
-        width: calc(100% - 30px);
-        padding: 20px 0;
-    }
-
-    .hero h1 {
-        font-size: clamp(20px, 5vw, 30px);
-        line-height: 1.1;
-        margin-bottom: 10px;
-    }
-
-    .hero p {
-        font-size: 14px;
-        line-height: 1.4;
-        margin-bottom: 15px;
-    }
-
-    .hero-actions {
-        gap: 8px;
-    }
-
-    .hero-actions .btn {
-        width: 100%;
-    }
-}
-
-/* ===== CELULARES PEQUENOS ===== */
-
-@media (max-width: 380px) {
-    .hero-content {
-        width: calc(100% - 20px);
-        padding: 10px 0;
-    }
-
-    .hero h1 {
-        font-size: 20px;
-    }
-
-    .hero p {
-        font-size: 12px;
-        margin-bottom: 10px;
+    .cta .container {
+        width: calc(100% - 24px);
+        padding: 28px 16px;
     }
 }
 
 /* Respeita a preferência por menos animações */
 @media (prefers-reduced-motion: reduce) {
-    .carrossel-track img {
-        animation: none;
+    html {
+        scroll-behavior: auto;
     }
 
-    .carrossel-track img:first-child {
-        opacity: 1;
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
     }
 }

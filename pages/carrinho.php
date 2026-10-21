@@ -316,9 +316,46 @@ require_once __DIR__ . "/../components/sidebar.php";
                 <h1>Meu carrinho</h1>
 
                 <?php if ($carrinhoFoiFechado): ?>
-                    <div class="cart-message">
-                        Reserva finalizada com sucesso! Nos encontre na (sala) dentro de 30 minutos
-                    </div>
+                    
+<div class="cart-message">
+    <div class="cart-message__icon">
+        <i data-lucide="check-circle-2"></i>
+    </div>
+
+    <div class="cart-message__content">
+        <h3>Reserva realizada com sucesso!</h3>
+
+        <p>
+            Sua reserva foi confirmada. Dirija-se ao local indicado
+            dentro do prazo para retirar seu pedido.
+        </p>
+
+        <div class="cart-message__info">
+            <i data-lucide="clock-3"></i>
+            <span>
+                Prazo para retirada: <strong>10 minutos</strong>
+            </span>
+        </div>
+
+        <div class="cart-message__info">
+            <i data-lucide="map-pin"></i>
+            <span>
+                Local de retirada: <strong>Sala 7</strong>
+            </span>
+
+            <a
+                href="https://www.ubieventos.com.br/viewMap/32o-semana-do-colegio-2026/?local=34"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cart-message__map-link"
+            >
+                <i data-lucide="external-link"></i>
+                Ver mapa
+            </a>
+        </div>
+    </div>
+</div>
+
                 <?php endif; ?>
 
                 <?php if ($avisoEstoque): ?>
@@ -451,5 +488,12 @@ require_once __DIR__ . "/../components/footer.php";
 ?>
 
     <script src="../assets/js/sidebar.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        lucide.createIcons();
+    });
+</script>
 </body>
 </html>

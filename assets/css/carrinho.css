@@ -151,15 +151,119 @@
     border-right: 1px solid var(--pl-line-strong, #c8cdd6);
 }
 
+
 .cart-message {
-    background: #e6f4ea;
-    color: #256a34;
-    border: 1px solid #b9e0c3;
-    border-radius: 6px;
-    padding: 12px 16px;
-    margin-bottom: 20px;
-    font-size: 0.9375rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    width: 100%;
+    box-sizing: border-box;
+    padding: 22px 24px;
+    margin-bottom: 28px;
+
+    background: #f4faf6;
+    border: 1px solid #c8e6d1;
+    border-left: 5px solid #27834b;
+    border-radius: 10px;
+
+    color: #0E1B2B;
+    box-shadow: 0 4px 12px rgba(14, 27, 43, 0.05);
 }
+
+.cart-message__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+
+    color: #27834b;
+    background: #e0f2e6;
+    border-radius: 50%;
+}
+
+.cart-message__icon svg {
+    width: 25px;
+    height: 25px;
+    stroke-width: 2;
+}
+
+.cart-message__content {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-message__content h3 {
+    margin: 0 0 7px;
+    color: #0E1B2B;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.cart-message__content p {
+    margin: 0 0 15px;
+    color: #526174;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.cart-message__info {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 10px;
+
+    color: #344256;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.cart-message__info svg {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    color: #0E1B2B;
+    stroke-width: 1.8;
+}
+
+.cart-message__info strong {
+    color: #0E1B2B;
+    font-weight: 600;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .cart-message {
+        gap: 12px;
+        padding: 18px 15px;
+        border-radius: 8px;
+    }
+
+    .cart-message__icon {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+    }
+
+    .cart-message__icon svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .cart-message__content h3 {
+        font-size: 1rem;
+    }
+
+    .cart-message__content p,
+    .cart-message__info {
+        font-size: 0.85rem;
+    }
+}
+
 
 .cart-message-erro{
     background: #f5ebc2;
