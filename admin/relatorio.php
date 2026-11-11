@@ -67,6 +67,7 @@ $omitirCancelados = isset($_POST["cancelados"]);
                 </div>
 
                 <button type="submit">Filtrar</button>
+                <button type="submit" formaction="relatorio_pdf.php" formtarget="_blank">Gerar PDF</button>
             </form>
 
             <br>
